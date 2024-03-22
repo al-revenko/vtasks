@@ -1,11 +1,11 @@
 <template>
-  <ul :class="'flex gap-5 flex-col'">
+  <ul :class="'flex gap-3 flex-col'">
     <li v-for="task in tasks" :key="task.createdAt">
-      <div :class="'z-10 flex gap-2'">
-        <div :class="'pt-0.5'">
+      <div :class="'z-10 flex gap-1.5'">
+        <div >
           <CheckboxInput v-model="task.isDone" :size="'xs'" />
         </div>
-        <span>{{ task.title }}</span>
+        <span :class="'text-sm'">{{ task.title }}</span>
       </div>
     </li>
   </ul>

@@ -3,7 +3,7 @@
     <input
       v-model="checkedModel"
       :type="'checkbox'"
-      :class="'checkbox border-slate-400 checked:border-lime-500 [--chkfg:white] [--chkbg:theme(colors.lime.500)] ' + size"
+      :class="'checkbox border-slate-400 checked:border-lime-500 [--chkfg:white] [--chkbg:theme(colors.lime.500)] checkbox-'+props.size"
     />
   </div>
 </template>
@@ -18,6 +18,4 @@ const props = defineProps<{
 }>()
 
 const checkedModel = defineModel<boolean>()
-
-const size = 'checkbox-' + props.size
 </script>

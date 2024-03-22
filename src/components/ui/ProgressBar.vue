@@ -2,7 +2,7 @@
   <div class="w-full h-full bg-gray-200 rounded-full dark:bg-gray-300">
     <div
       :class="
-        'h-full transition-all ease-in duration-700 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full' +
+        'h-full transition-all ease-in duration-700 text-xs font-medium text-white text-center p-0.5 leading-none rounded-full' +
         ' ' +
         barColor
       "
