@@ -1,8 +1,8 @@
 <template>
   <ul :class="'flex gap-3 flex-col'">
-    <li v-for="task in tasks" :key="task.createdAt">
+    <li v-for="task in tasks" :key="task.id">
       <div :class="'z-10 flex gap-1.5'">
-        <div >
+        <div>
           <CheckboxInput v-model="task.isDone" :size="'xs'" />
         </div>
         <span :class="'text-sm'">{{ task.title }}</span>
@@ -13,7 +13,12 @@
 
 <script setup lang="ts">
 import CheckboxInput from './ui/CheckboxInput.vue'
-import type { ITask } from '@/interfaces/task.interface'
 
-const tasks = defineModel<ITask[]>({ required: true })
+const tasks = defineModel<
+  {
+    id: number
+    title: string
+    isDone: boolean
+  }[]
+>({ required: true })
 </script>
