@@ -2,6 +2,7 @@
   <div>
     <input
       v-model="checkedModel"
+      @change="emit('change')"
       :type="'checkbox'"
       :class="'checkbox border-slate-400 checked:border-lime-500 [--chkfg:white] [--chkbg:theme(colors.lime.500)] checkbox-'+props.size"
     />
@@ -18,4 +19,7 @@ const props = defineProps<{
 }>()
 
 const checkedModel = defineModel<boolean>()
+
+const emit = defineEmits(['change'])
+
 </script>

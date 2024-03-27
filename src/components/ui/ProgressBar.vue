@@ -23,6 +23,10 @@ const props = defineProps<{
 
 const barColor = computed(() => {
   const percentage = props.percentage
+  
+  if (percentage === 0) {
+    return ''
+  }
 
   if (percentage <= 20) {
     return 'bg-red-800'

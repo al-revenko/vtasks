@@ -3,7 +3,7 @@
     <li v-for="task in tasks" :key="task.id">
       <div :class="'z-10 flex gap-1.5'">
         <div>
-          <CheckboxInput v-model="task.isDone" :size="'xs'" />
+          <CheckboxInput @change="emit('taskChange', task.id)" v-model="task.isDone" :size="'xs'" />
         </div>
         <span :class="'text-sm'">{{ task.title }}</span>
       </div>
@@ -21,4 +21,7 @@ const tasks = defineModel<
     isDone: boolean
   }[]
 >({ required: true })
+
+const emit = defineEmits(['taskChange'])
+
 </script>
