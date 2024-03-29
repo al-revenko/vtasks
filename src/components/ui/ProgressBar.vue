@@ -14,44 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import useProgressColor from '@/composables/useProgressColor'
+import { toRef } from 'vue';
 
 const props = defineProps<{
   percentage: number
   title?: string
 }>()
 
-const barColor = computed(() => {
-  const percentage = props.percentage
-  
-  if (percentage === 0) {
-    return ''
-  }
+const barColor = useProgressColor(toRef(() => props.percentage), 'bg-') 
 
-  if (percentage <= 20) {
-    return 'bg-red-800'
-  }
-  
-  if (percentage <= 40) {
-    return 'bg-orange-600'
-  }
-  
-  if (percentage <= 60) {
-    return 'bg-amber-500'
-  }
-  
-  if (percentage <= 80) {
-    return 'bg-yellow-400'
-  }
-  
-  if (percentage <= 90) {
-    return 'bg-lime-500'
-  }
-
-  if (percentage < 100) {
-    return 'bg-lime-600'
-  }
-
-  return 'bg-green-600'
-})
 </script>
