@@ -12,20 +12,20 @@
     <div :class="'flex items-start justify-between gap-3'">
       <h3 :class="'text-lg font-medium'">{{ props.title }}</h3>
       <div :class="'pt-1'">
-        <CheckboxInput v-if="!hasTasksArray" v-model="isDoneModel" :size="'lg'" />
+        <CheckboxInput v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
       </div>
     </div>
 
-    <template v-if="hasTasksArray">
+    <template v-if="macroTaskData && hasTasks">
       <div :class="'max-h-44 pl-1 pr-5'">
         <TasksList
           :class="'h-full justify-center flex-wrap overflow-hidden'"
-          @task-change="emit('mTasksUpdate', props.id)"
-          v-model="nestedDataModel.tasks"
+          @task-change="emit('tasksListUpdate', props.id)"
+          v-model="macroTaskData.tasks"
         />
       </div>
       <div :class="'min-h-6 pb-2'">
-        <ProgressBar :percentage="percentage" :title="percentage + '%'" />
+        <ProgressBar :percentage="donePercentage" :title="donePercentage + '%'" />
       </div>
     </template>
 
@@ -44,6 +44,7 @@ import { computed } from 'vue'
 import TasksList from '@/components/TasksList.vue'
 import CheckboxInput from '@/components/ui/CheckboxInput.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'
+import useMacroTaskMeta from '@/composables/useMacroTaskMeta'
 
 const props = defineProps<{
   id: number
@@ -53,34 +54,23 @@ const props = defineProps<{
 
 const isDoneModel = defineModel<boolean>('isDone', { required: true })
 
-const nestedDataModel = defineModel<{
+const macroTaskDataModel = defineModel<{
   doneCount: number
   tasks: {
     id: number
     title: string
     isDone: boolean
   }[]
-}>('nestedData', {
+}>('macroTaskData', {
   default: {
     tasks: [],
     doneCount: 0,
   },
 })
 
-const tasksCount = nestedDataModel.value.tasks.length
-const hasTasksArray = computed(() => tasksCount > 0)
+const { hasTasks, donePercentage } = useMacroTaskMeta(macroTaskDataModel)
 
-const percentage = computed(() => {
-  const doneCount = nestedDataModel.value.doneCount
-
-  if (hasTasksArray.value && doneCount > 0) {
-    return Math.floor((doneCount / tasksCount) * 100)
-  }
-
-  return 0
-})
-
-const emit = defineEmits(['mTasksUpdate', 'click'])
+const emit = defineEmits(['tasksListUpdate', 'click'])
 
 const shadowColor = computed(() =>
   isDoneModel.value

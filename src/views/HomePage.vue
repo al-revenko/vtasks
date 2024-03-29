@@ -7,20 +7,12 @@
       <template v-for="task in tasks" :key="task.id">
         <TaskCard
           v-if="isMacroTask(task)"
-          :id="task.id"
-          :title="task.title"
-          :desc="task.desc"
-          @m-tasks-update="collbacks.onMacroTaskUpdate"
+          v-bind="task"
           v-model:is-done="task.isDone"
-          v-model:nested-data="task.nestedData"
+          v-model:macro-task-data="task.nestedData"
+          @tasks-list-update="collbacks.onTasksListUpdate"
         />
-        <TaskCard
-          v-else
-          :id="task.id"
-          :title="task.title"
-          :desc="task.desc"
-          v-model:is-done="task.isDone"
-        />
+        <TaskCard v-else v-bind="task" v-model:is-done="task.isDone" />
       </template>
     </CardsLayout>
   </PageLayout>
@@ -37,11 +29,10 @@ import isMacroTask from '@/guards/isMacroTask.guard'
 const taskStore = useTaskStore()
 
 const collbacks = {
-  onMacroTaskUpdate(id: number) {
+  onTasksListUpdate(id: number) {
     taskStore.updateMacroTask(id)
-  } 
+  },
 }
 
 const tasks = taskStore.$state.tasks
-
 </script>
