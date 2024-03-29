@@ -27,9 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import PageLayout from '@/components/PageLayout.vue'
+import PageLayout from '@/components/layouts/PageLayout.vue'
+import CardsLayout from '@/components/layouts/CardsLayout.vue'
 import MenuBar from '@/components/MenuBar.vue'
-import CardsLayout from '@/components/CardsLayout.vue'
 import TaskCard from '@/components/TaskCard.vue'
 import useTaskStore from '@/stores/task.store'
 import isMacroTask from '@/guards/isMacroTask.guard'
