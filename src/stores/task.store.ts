@@ -72,7 +72,7 @@ const useTaskStore = defineStore('tasks', {
 
   getters: {
     getTaskById: (state) => {
-      return (id: number): ITask | undefined => state.tasks.find((task) => task.id === id)
+      return (id: number): ITask | IMacroTask | undefined => state.tasks.find((task) => task.id === id)
     },
   },
 
