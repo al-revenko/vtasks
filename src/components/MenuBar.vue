@@ -1,5 +1,5 @@
 <template>
-  <div :class="'bg-zinc-700 w-full lg:h-screen'" >
+  <div data-id="MenuBar" :class="'bg-zinc-700 w-full lg:h-screen'" >
   </div>
 </template>
 
