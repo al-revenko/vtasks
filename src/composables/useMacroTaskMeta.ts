@@ -5,7 +5,6 @@ function useMacroTaskMeta(data: Ref<{ doneCount: number; tasks: unknown[] } | un
   hasTasks: Ref<boolean>
   donePercentage: Ref<number>
 } {
-
   const hasTasks = computed(() => {
     if (data.value && data.value.tasks.length > 0) {
       return true
@@ -16,13 +15,15 @@ function useMacroTaskMeta(data: Ref<{ doneCount: number; tasks: unknown[] } | un
 
   const donePercentage = computed(() => {
     if (data.value) {
-      return usePercentage(data.value.tasks.length, data.value.doneCount).value
+      const { tasks, doneCount } = data.value
+
+      return usePercentage(tasks.length, doneCount).value
     }
 
     return 0
-  }) 
+  })
 
-  return { hasTasks, donePercentage}
+  return { hasTasks, donePercentage }
 }
 
 export default useMacroTaskMeta

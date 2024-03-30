@@ -20,7 +20,6 @@
       <div :class="'max-h-44 pl-1 pr-5'">
         <TasksList
           :class="'h-full justify-center flex-wrap overflow-hidden'"
-          @task-change="emit('tasksListUpdate', props.id)"
           v-model="macroTaskData.tasks"
         />
       </div>
@@ -70,7 +69,7 @@ const macroTaskDataModel = defineModel<{
 
 const { hasTasks, donePercentage } = useMacroTaskMeta(macroTaskDataModel)
 
-const emit = defineEmits(['tasksListUpdate', 'click'])
+const emit = defineEmits(['click'])
 
 const shadowColor = computed(() =>
   isDoneModel.value
