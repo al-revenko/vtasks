@@ -1,7 +1,7 @@
+import { ref, watch, reactive, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { IMacroTask, ITask } from '@/interfaces/task.interface'
 import isMacroTask from '@/guards/isMacroTask.guard'
-import { ref, watch, type Ref } from 'vue'
 
 interface ITaskStore {
   __initId: Ref<number>
@@ -31,15 +31,15 @@ const useTaskStore = defineStore('tasks', () => {
 
     addTask(title: string, desc?: string, nestedTasks?: ITask[]): ITask | IMacroTask {
       if (nestedTasks && nestedTasks.length > 0) {
-        const task: IMacroTask = ref({
+        const task = reactive<IMacroTask>({
           ...this.createTask(state.__initId.value++, title, desc),
           nestedData: {
             tasks: nestedTasks,
             doneCount: 0,
           },
-        }).value
+        })
 
-        watch(task, ({ ...oldValue }) => this.updateMacroTask(oldValue.id))
+        watch(task, () => this.updateDoneCount(task))
 
         state.tasks.value.push(task)
 
@@ -57,28 +57,51 @@ const useTaskStore = defineStore('tasks', () => {
       state.tasks.value = state.tasks.value.filter((task) => task.id === id)
     },
 
-    updateMacroTask(id: number) {
-      const macroTask = this.getTaskById(id)
+    updateDoneCount(macroTask: IMacroTask) {
+      const { tasks } = macroTask.nestedData
 
-      if (macroTask && isMacroTask(macroTask)) {
-        const { tasks } = macroTask.nestedData
-
-        const updatedDoneCount = tasks.reduce((acc, task) => {
-          if (task.isDone) {
-            return acc + 1
-          } else {
-            return acc
-          }
-        }, 0)
-
-        if (updatedDoneCount === tasks.length) {
-          macroTask.isDone = true
-        } else {
-          macroTask.isDone = false
+      const doneCount = tasks.reduce((acc, task) => {
+        if (task.isDone) {
+          return acc + 1
         }
 
-        macroTask.nestedData.doneCount = updatedDoneCount
+        return acc
+      }, 0)
+
+      macroTask.nestedData.doneCount = doneCount
+
+      if (doneCount === tasks.length) {
+        macroTask.isDone = true
+        return macroTask
       }
+
+      if (doneCount < tasks.length) {
+        macroTask.isDone = false
+        return macroTask
+      }
+    },
+
+    forceTaskStatus(id: number, status: boolean): ITask | IMacroTask | null {
+      const task = this.getTaskById(id)
+
+      if (!task) {
+        return null
+      }
+
+      if (!isMacroTask(task)) {
+        task.isDone = status
+        return task
+      }
+
+      if (status === true) {
+        task.nestedData.tasks.forEach((task) => (task.isDone = true))
+        task.nestedData.doneCount = task.nestedData.tasks.length
+        return task
+      }
+
+      task.nestedData.tasks.forEach((task) => (task.isDone = false))
+      task.nestedData.doneCount = 0
+      return task
     },
   }
 
