@@ -2,7 +2,7 @@
   <ul data-id="TaskList" :class="'flex gap-3 flex-col'">
     <li data-id="TaskList__item" v-for="task in tasks" :key="task.id">
       <div :class="'z-10 flex gap-1.5'">
-        <div>
+        <div @click.stop>
           <CheckboxInput
             @change="(value: boolean) => emit('statusChange', { id: task.id, status: value })"
             v-model="task.isDone"
