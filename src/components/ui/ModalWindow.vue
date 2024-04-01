@@ -5,8 +5,8 @@
     v-show="isShowModel ? true : ''"
   >
     <div :class="'min-h-80 min-w-80 bg-white border rounded-md drop-shadow-lg relative p-4'">
-      <div :class="'flex justify-between  gap-2 items-center'">
-        <h2 :class="'text-slate-600'">{{ props.title }}</h2>
+      <div :class="'flex justify-between gap-2 items-center'">
+        <slot name="head" />
         <CloseBtn :class="'btn-sm'" @click="() => callbacks.onClose()" />
       </div>
       <slot />
