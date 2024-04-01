@@ -2,19 +2,19 @@
   <div data-id="ProgressBar" class="w-full h-full bg-gray-200 rounded-full dark:bg-gray-300">
     <div
       :class="
-        'h-full transition-all ease-in duration-700 text-xs font-medium text-white text-center p-0.5 leading-none rounded-full' +
+        'flex justify-center items-center h-full transition-all ease-in duration-700  font-medium text-white text-xs p-0.5 leading-none rounded-full' +
         ' ' +
         barColor
       "
       :style="'width: ' + props.percentage + '%'"
     >
-      {{ percentage >= 10 ? props.title : null }}
+        {{ percentage >= 10 ? props.title : null }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = defineProps<{
   percentage: number
@@ -22,35 +22,34 @@ const props = defineProps<{
 }>()
 
 const barColor = computed(() => {
-    if (props.percentage === 0) {
-      return ''
-    }
+  if (props.percentage === 0) {
+    return ''
+  }
 
-    if (props.percentage <= 20) {
-      return 'bg-red-800'
-    }
+  if (props.percentage <= 20) {
+    return 'bg-red-800'
+  }
 
-    if (props.percentage <= 40) {
-      return 'bg-orange-600'
-    }
+  if (props.percentage <= 40) {
+    return 'bg-orange-600'
+  }
 
-    if (props.percentage <= 60) {
-      return 'bg-amber-500'
-    }
+  if (props.percentage <= 60) {
+    return 'bg-amber-500'
+  }
 
-    if (props.percentage <= 80) {
-      return 'bg-yellow-400'
-    }
+  if (props.percentage <= 80) {
+    return 'bg-yellow-400'
+  }
 
-    if (props.percentage <= 90) {
-      return 'bg-lime-400'
-    }
+  if (props.percentage <= 90) {
+    return 'bg-lime-400'
+  }
 
-    if (props.percentage < 100) {
-      return 'bg-lime-500'
-    }
+  if (props.percentage < 100) {
+    return 'bg-lime-500'
+  }
 
-    return 'bg-lime-600'
-  })
-
+  return 'bg-lime-600'
+})
 </script>

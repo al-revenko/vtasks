@@ -1,9 +1,9 @@
 <template>
-  <a
+  <button
     data-id="TaskCard"
     :href="'#'"
     :class="
-      `grid grid-rows-[max-content_1fr] gap-3 h-72 w-64 pt-3 pl-3 pr-2 pb-3 transition-all ease-in duration-200 bg-white border rounded-md shadow-[-1px_2px_6px_1px]` +
+      `grid grid-rows-[max-content_1fr] gap-3 h-72 w-64 pt-3 pl-3 pr-2 pb-3 text-start transition-all ease-in duration-200 bg-white border rounded-md shadow-[-1px_2px_6px_1px]` +
       ' ' +
       shadowColor
     "
@@ -23,19 +23,19 @@
           v-model="macroTaskData.tasks"
         />
       </div>
-      <div :class="'min-h-6 pb-2'">
+      <div :class="'h-6 pb-2'">
         <ProgressBar :percentage="donePercentage" :title="donePercentage + '%'" />
       </div>
     </template>
 
     <template v-else>
-      <div :class="'fade overflow-hidden'">
+      <div :class="'fade overflow-hidden h-full'">
         <p v-if="props.desc">
           {{ props.desc }}
         </p>
       </div>
     </template>
-  </a>
+  </button>
 </template>
 
 <script setup lang="ts">
