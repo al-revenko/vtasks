@@ -12,7 +12,7 @@
     <div :class="'flex items-start justify-between gap-3'">
       <h3 :class="'text-lg font-medium'">{{ props.title }}</h3>
       <div :class="'pt-1'">
-        <CheckboxInput v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
+        <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
       </div>
     </div>
 
