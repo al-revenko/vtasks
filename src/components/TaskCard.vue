@@ -17,9 +17,9 @@
     </div>
 
     <template v-if="macroTaskData && hasTasks">
-      <div :class="'max-h-44 pl-1 pr-5'">
+      <div :class="'pl-1 pr-5'">
         <TasksList
-          :class="'h-full justify-center flex-wrap overflow-hidden'"
+          :class="'flex gap-1 flex-col flex-wrap h-44 overflow-hidden'"
           v-model="macroTaskData.tasks"
         />
       </div>

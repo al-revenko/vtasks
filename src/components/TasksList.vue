@@ -1,14 +1,13 @@
 <template>
-  <ul data-id="TaskList" :class="'flex gap-3 flex-col'">
-    <li data-id="TaskList__item" v-for="task in tasks" :key="task.id">
-      <div :class="'z-10 flex gap-1.5'">
-        <div @click.stop>
+  <ul data-id="TaskList" >
+    <li :class="'w-full'" data-id="TaskList__item" v-for="task in tasks" :key="task.id">
+      <div :class="'flex gap-2 items-center min-h-10'">
           <CheckboxInput
             @change="(value: boolean) => emit('statusChange', { id: task.id, status: value })"
+            @click.stop
             v-model="task.isDone"
             :size="'xs'"
           />
-        </div>
         <span :class="'text-sm'">{{ task.title }}</span>
       </div>
     </li>
