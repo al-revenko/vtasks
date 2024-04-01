@@ -16,12 +16,15 @@
 
 <script setup lang="ts">
 import CloseBtn from '@/components/ui/CloseBtn.vue'
+import useDisableScroll from '@/composables/useDisableScroll'
 
 const props = defineProps<{
   title?: string
 }>()
 
 const isShowModel = defineModel<boolean>({ required: true })
+
+useDisableScroll(isShowModel)
 
 const callbacks = {
   onClose() {
