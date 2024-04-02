@@ -1,5 +1,5 @@
 <template>
-  <template v-if="props.desc">
+  <template v-if="props.desc || hasTasks">
     <button
       data-id="TaskCard"
       :class="
@@ -38,7 +38,7 @@
     </button>
   </template>
   <template v-else>
-    <a
+    <button
       data-id="TaskCard"
       :href="'/'"
       :class="
@@ -46,6 +46,7 @@
         ' ' +
         shadowColor
       "
+      @click="emit('click', props.id)"
     >
       <div :class="'flex items-start justify-between gap-3'">
         <h3 :class="'text-lg font-medium'">{{ props.title }}</h3>
@@ -53,7 +54,7 @@
           <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
         </div>
       </div>
-    </a>
+    </button>
   </template>
 </template>
 
