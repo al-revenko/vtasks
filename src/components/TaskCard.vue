@@ -3,7 +3,7 @@
     <button
       data-id="TaskCard"
       :class="
-        `grid grid-rows-[max-content_1fr] gap-3 h-72 w-64 pt-3 pl-3 pr-2 pb-3 text-start transition-all ease-in duration-200 bg-white border rounded-md shadow-[-1px_2px_6px_1px]` +
+        `grid grid-rows-[max-content_1fr] gap-3 h-72 w-64 pt-3 pl-3 pr-2 pb-3 text-start transition-all ease-in duration-200 bg-white border rounded-md shadow-[0px_1px_5px_1px]` +
         ' ' +
         shadowColor
       "
@@ -42,7 +42,7 @@
       data-id="TaskCard"
       :href="'/'"
       :class="
-        `flex justify-center items-center h-72 w-64 pt-3 pl-3 pr-2 pb-3 transition-all ease-in duration-200 bg-white border rounded-md shadow-[-1px_2px_6px_1px]` +
+        `flex justify-center items-center h-72 w-64 pt-3 pl-3 pr-2 pb-3 transition-all ease-in duration-200 bg-white border rounded-md shadow-[0px_1px_8px_1px]` +
         ' ' +
         shadowColor
       "
@@ -94,6 +94,6 @@ const emit = defineEmits(['click'])
 const shadowColor = computed(() =>
   isDoneModel.value
     ? 'shadow-lime-600/65 hover:shadow-lime-600/90'
-    : 'shadow-red-500/65 hover:shadow-red-500/90',
+    : 'shadow-slate-300 hover:shadow-rose-500',
 )
 </script>

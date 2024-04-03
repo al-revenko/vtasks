@@ -1,5 +1,6 @@
 <template>
     <input
+      :tabindex="tabindex"
       data-id="CheckboxInput"
       v-model="checkedModel"
       @change=" emit('change', ($event.target as HTMLInputElement).checked)"
@@ -15,7 +16,8 @@ import { defineModel } from 'vue'
 type SizeType = 'xs' | 'sm'| 'md'| 'lg'
 
 const props = defineProps<{
-  size: SizeType  
+  size: SizeType
+  tabindex?: number  
 }>()
 
 const checkedModel = defineModel<boolean>()

@@ -3,6 +3,7 @@
     <li :class="'w-full'" data-id="TaskList__item" v-for="task in tasks" :key="task.id">
       <div :class="'flex gap-2 items-center min-h-10'">
           <CheckboxInput
+            :tabindex="-1"
             @change="(value: boolean) => emit('statusChange', { id: task.id, status: value })"
             @click.stop
             v-model="task.isDone"
