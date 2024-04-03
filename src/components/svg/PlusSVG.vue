@@ -1,0 +1,12 @@
+<template>
+  <svg
+    version="1.1"
+    id="Capa_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 60 60"
+    xml:space="preserve"
+  >
+    <path d="M0,0v60h60V0H0z M51,32H32v19h-4V32H9v-4h19V9h4v19h19V32z" />
+  </svg>
+</template>
