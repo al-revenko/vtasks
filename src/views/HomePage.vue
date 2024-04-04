@@ -1,10 +1,10 @@
 <template>
   <PageLayout>
     <template #bar>
-      <MenuBar />
+      <MenuBar @task-add="callbacks.onTaskAdd" v-model:mode="mode" />
     </template>
     <CardsLayout>
-      <template v-for="task in state.tasks" :key="task.id">
+      <template v-for="task in tasks" :key="task.id">
         <TaskCard
           v-if="isMacroTask(task)"
           v-bind="task"
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { ITask } from '@/interfaces/task.interface'
 import isMacroTask from '@/guards/isMacroTask.guard'
 import { useTaskStore } from '@/stores/task.store'
@@ -53,6 +53,15 @@ import TaskCard from '@/components/TaskCard.vue'
 import TaskModal from '@/components/TaskModal.vue'
 
 const taskStore = useTaskStore()
+const mode = ref<boolean | null>(null)
+
+const tasks = computed(() => {
+  if (mode.value === null) {
+    return taskStore.$state.tasks
+  }
+
+  return taskStore.getTasksByStatus(mode.value, taskStore.$state.tasks)
+})
 
 const currentTask = ref<ITask | null>(null)
 const modalIsShow = ref<boolean>(false)
@@ -73,7 +82,9 @@ const callbacks = {
   onTaskDelete(id: number) {
     taskStore.deleteTaskByID(id)
   },
-}
 
-const state = taskStore.$state
+  onTaskAdd() {
+    console.log('Add!')
+  },
+}
 </script>
