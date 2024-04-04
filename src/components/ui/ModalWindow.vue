@@ -22,7 +22,7 @@
 import CloseBtn from '@/components/ui/CloseBtn.vue'
 import useDisableScroll from '@/composables/useDisableScroll'
 
-const isShowModel = defineModel<boolean>({ required: true })
+const isShowModel = defineModel<boolean>('isShow', { required: true })
 
 useDisableScroll(isShowModel)
 

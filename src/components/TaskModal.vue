@@ -1,5 +1,5 @@
 <template>
-  <ModalWindow v-if="props.desc || hasTasks" data-id="TaskModal" v-model="isShowModel">
+  <ModalWindow v-if="props.desc || hasTasks" data-id="TaskModal" v-model:is-show="isShowModel">
     <template #head>
       <div :class="'flex gap-3 items-center'">
         <CheckboxInput
@@ -32,7 +32,7 @@
     </div>
   </ModalWindow>
 
-  <ModalWindow v-else data-id="TaskModal" v-model="isShowModel">
+  <ModalWindow v-else data-id="TaskModal" v-model:is-show="isShowModel">
     <template #head>
       <PageLink
         :class="'h-7 w-7 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
