@@ -32,8 +32,10 @@ const callbacks = {
       case null:
         if (target.checked) {
           state.value = false
+          setChecked(false)
         } else {
           state.value = true
+          setChecked(true)
         }
         setIndeterminate(false)
         break
@@ -46,21 +48,24 @@ const callbacks = {
   },
 }
 
+const setChecked = (value: boolean) => {
+  if (toggle.value) {
+    toggle.value.checked = value
+  }
+}
+
 const setIndeterminate = (value: boolean) => {
   if (toggle.value) {
     toggle.value.indeterminate = value
-
-    if (value === false && state.value !== null) {
-      toggle.value.checked = state.value
-    }
   }
 }
 
 onMounted(() => {
   if (state.value === null) {
     setIndeterminate(true)
+    setChecked(true)
   } else {
-    setIndeterminate(false)
+    setChecked(state.value)
   }
 })
 
