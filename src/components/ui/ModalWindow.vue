@@ -10,7 +10,7 @@
           <slot name="head" />
         </div>
         <div>
-          <CloseBtn :class="'mr-auto btn-sm'" @click="() => callbacks.onClose()" />
+          <CloseBtn @click="callbacks.onClose" :class="'btn-sm'" />
         </div>
       </div>
       <slot />
