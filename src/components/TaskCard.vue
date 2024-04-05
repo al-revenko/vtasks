@@ -3,14 +3,19 @@
     <button
       data-id="TaskCard"
       :class="
-        `grid grid-rows-[max-content_1fr] gap-3 h-72 w-64 pt-3 pl-3 pr-2 pb-3 text-start transition-all ease-in duration-200 bg-white border rounded-md shadow-[0px_1px_5px_1px]` +
+        `grid grid-cols-1 grid-rows-[max-content_1fr] gap-3 
+        h-72 w-64 pt-3 pl-3 pr-2 pb-3 text-start 
+        transition-all ease-in duration-200 
+        bg-white border rounded-md shadow-[0px_1px_5px_1px]
+        overflow-hidden
+        ` +
         ' ' +
         shadowColor
       "
       @click="emit('click', props.id)"
     >
-      <div :class="'flex items-start justify-between gap-3'">
-        <h3 :class="'text-lg font-medium'">{{ props.title }}</h3>
+      <div :class="'flex items-start justify-between gap-3 max-w-full'">
+        <h3 :class="'text-lg font-medium break-words max-w-full'">{{ props.title }}</h3>
         <div :class="'pt-1'">
           <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
         </div>
@@ -29,7 +34,7 @@
       </template>
   
       <template v-else>
-        <div :class="'fade overflow-hidden h-full'">
+        <div :class="'fade max-w-full h-full break-words overflow-hidden'">
           <p v-if="props.desc">
             {{ props.desc }}
           </p>
@@ -42,14 +47,19 @@
       data-id="TaskCard"
       :href="'/'"
       :class="
-        `flex justify-center items-center h-72 w-64 pt-3 pl-3 pr-2 pb-3 transition-all ease-in duration-200 bg-white border rounded-md shadow-[0px_1px_8px_1px]` +
+        `flex justify-center items-center 
+        h-72 w-64 pt-3 pl-3 pr-2 pb-3 
+        transition-all ease-in duration-200 
+        bg-white border rounded-md shadow-[0px_1px_8px_1px]
+        overflow-hidden
+        ` +
         ' ' +
         shadowColor
       "
       @click="emit('click', props.id)"
     >
-      <div :class="'flex items-start justify-between gap-3'">
-        <h3 :class="'text-lg font-medium'">{{ props.title }}</h3>
+      <div :class="'flex items-start justify-between gap-3 max-w-full'">
+        <h3 :class="'text-lg font-medium break-words max-w-full h-max'">{{ props.title }}</h3>
         <div :class="'pt-1'">
           <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
         </div>

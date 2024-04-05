@@ -25,7 +25,7 @@
           <TasksList v-model="macroTaskDataModel.tasks" :class="'grid grid-cols-4 gap-2'" />
         </div>
       </template>
-      <p :class="'text-slate-600 pt-5 pr-8'" v-if="props.desc">{{ desc }}</p>
+      <p :class="'text-slate-600 pt-5 pr-8 break-words max-w-full'" v-if="props.desc">{{ desc }}</p>
       <AngleBtn :color="'red'" @click="callbacks.onDelete">
         <TrashCanSVG :class="'fill-white w-4 h-4'" />
       </AngleBtn>
