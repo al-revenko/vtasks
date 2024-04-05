@@ -5,7 +5,7 @@
   >
     <div :class="'h-full flex flex-col items-center justify-between pb-5 pt-7 px-2'">
       <div :class="'flex flex-col items-center gap-12'">
-        <AddBtn :class="'w-10 h-10'" @click="emit('taskAdd', $event)" />
+        <AddBtn :color="'white'" @click="() => (formModalIsShowModel = true)" />
         <ToggleInput
           :state-color="true"
           :triple="true"
@@ -20,12 +20,13 @@
 
 <script setup lang="ts">
 import RepoLink from '@/components/ui/RepoLink.vue'
-import AddBtn from '@/components/ui/AddBtn.vue'
 import ToggleInput from '@/components/ui/ToggleInput.vue'
+import AddBtn from '@/components/ui/AddBtn.vue'
 
-const emit = defineEmits(['taskAdd', 'modeChange'])
+const emit = defineEmits(['modeChange'])
 
 const modeModel = defineModel<boolean | null>('mode')
+const formModalIsShowModel = defineModel<boolean>('formModalIsShow')
 </script>
 
 <style scoped></style>
