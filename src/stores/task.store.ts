@@ -1,6 +1,6 @@
 import { ref, watch, reactive, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { IMacroTask, ITask } from '@/interfaces/task.interface'
+import type { IMacroTask, ITask } from '@/types/task.interface'
 import isMacroTask from '@/guards/isMacroTask.guard'
 
 interface ITaskStore {

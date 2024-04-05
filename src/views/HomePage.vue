@@ -39,11 +39,11 @@
       @task-delete="callbacks.onTaskDelete"
     />
   </template>
-</template>
+  </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { ITask } from '@/interfaces/task.interface'
+import type { ITask } from '@/types/task.interface'
 import isMacroTask from '@/guards/isMacroTask.guard'
 import { useTaskStore } from '@/stores/task.store'
 import PageLayout from '@/components/layouts/PageLayout.vue'
