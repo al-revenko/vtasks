@@ -1,5 +1,7 @@
 <template>
   <button
+    data-id="AngleBtn"
+    :type="props.type"
     :class="
       style +
       ' absolute cursor-pointer transition-colors ease-in duration-100 bottom-[-6px] right-[-26px] w-0 h-0 rotate-[135deg]  border-l-[40px] border-l-transparent border-b-[40px]  border-r-[40px] border-r-transparent'
@@ -13,7 +15,12 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ color: 'red' | 'lime' }>()
+import type {  ButtonHTMLAttributes } from 'vue';
+
+const props = defineProps<{ 
+  color: 'red' | 'lime' 
+  type?: ButtonHTMLAttributes['type']
+}>()
 
 const emit = defineEmits(['click'])
 

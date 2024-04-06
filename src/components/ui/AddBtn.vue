@@ -1,5 +1,7 @@
 <template>
   <button
+    data-id="AddBtn"
+    :type="props.type"
     @click="emit('click')"
     :class="`btn btn-square btn-outline border-none` + colorClasses.btn"
   >
@@ -8,11 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type ButtonHTMLAttributes } from 'vue'
 import PlusSVG from '@/components/svg/PlusSVG.vue'
 
 const props = defineProps<{
   color?: 'neutral' | 'white'
+  type?: ButtonHTMLAttributes['type']
 }>()
 
 const colorClasses = computed<{

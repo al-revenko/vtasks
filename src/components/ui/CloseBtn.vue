@@ -1,6 +1,7 @@
 <template>
   <button
     data-id="CloseBtn"
+    :type="props.type"
     :class="`
       btn btn-square btn-outline 
       border-slate-500 text-slate-500  
@@ -13,7 +14,12 @@
 </template>
 
 <script setup lang="ts">
+import type { ButtonHTMLAttributes } from 'vue';
 import CrossSVG from '@/components/svg/CrossSVG.vue'
+
+const props = defineProps<{
+  type?: ButtonHTMLAttributes['type']
+}>()
 
 const emit = defineEmits(['click'])
 </script>
