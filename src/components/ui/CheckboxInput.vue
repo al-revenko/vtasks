@@ -26,4 +26,3 @@ const checkedModel = defineModel<boolean>()
 
 const emit = defineEmits(['change', 'click'])
 </script>
-@/types/size.type
