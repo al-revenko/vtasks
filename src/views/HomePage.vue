@@ -1,7 +1,7 @@
 <template>
   <PageLayout>
     <template #bar>
-      <MenuBar @task-add="callbacks.onTaskAdd" v-model:mode="mode" />
+      <MenuBar v-model:mode="mode" v-model:form-modal-is-show="formModalIsShow" />
     </template>
     <CardsLayout>
       <template v-for="task in tasks" :key="task.id">
@@ -27,7 +27,7 @@
       v-bind="currentTask"
       v-model:is-done="currentTask.isDone"
       v-model:macro-task-data="currentTask.nestedData"
-      v-model:is-show="modalIsShow"
+      v-model:is-show="taskModalIsShow"
       @status-change="callbacks.onStatusChange"
       @task-delete="callbacks.onTaskDelete"
     />
@@ -35,11 +35,12 @@
       v-else
       v-bind="currentTask"
       v-model:is-done="currentTask.isDone"
-      v-model:is-show="modalIsShow"
+      v-model:is-show="taskModalIsShow"
       @task-delete="callbacks.onTaskDelete"
     />
   </template>
-  </template>
+  <CreateTaskModal v-model:is-show="formModalIsShow" @task-created="callbacks.onTaskCreated" />
+</template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
@@ -51,6 +52,7 @@ import CardsLayout from '@/components/layouts/CardsLayout.vue'
 import MenuBar from '@/components/MenuBar.vue'
 import TaskCard from '@/components/TaskCard.vue'
 import TaskModal from '@/components/TaskModal.vue'
+import CreateTaskModal from '@/components/CreateTaskModal.vue'
 
 const taskStore = useTaskStore()
 const mode = ref<boolean | null>(null)
@@ -64,14 +66,15 @@ const tasks = computed(() => {
 })
 
 const currentTask = ref<ITask | null>(null)
-const modalIsShow = ref<boolean>(false)
+const taskModalIsShow = ref<boolean>(false)
+const formModalIsShow = ref<boolean>(false)
 
 const callbacks = {
   onTaskCardClick(id: number) {
     const task = taskStore.getTaskById(id)
     if (task) {
       currentTask.value = task
-      modalIsShow.value = true
+      taskModalIsShow.value = true
     }
   },
 
@@ -83,8 +86,12 @@ const callbacks = {
     taskStore.deleteTaskByID(id)
   },
 
-  onTaskAdd() {
-    console.log('Add!')
+  onClickAdd() {
+    formModalIsShow.value = true
+  },
+
+  onTaskCreated(formData: { title: string; desc?: string; microTasks?: string[] }) {
+    taskStore.addTask(formData.title, formData.desc, formData.microTasks)
   },
 }
 </script>
