@@ -1,7 +1,7 @@
 <template>
-  <a href="https://github.com/al-revenko/vtasks" target="_blank" rel="noopener noreferrer">
+  <a :class="`flex`" href="https://github.com/al-revenko/vtasks" target="_blank" rel="noopener noreferrer">
     <GitHubSVG
-      :class="'h-14 w-14 transition-colors ease-in duration-100 fill-white hover:fill-slate-300 active:fill-slate-400'"
+      :class="'transition-colors ease-in duration-100 fill-white hover:fill-slate-300 active:fill-slate-400'"
     />
   </a>
 </template>
