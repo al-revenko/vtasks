@@ -1,8 +1,17 @@
 <template>
-  <div :data-id="'CardsLayout'" :class="'flex justify-center'">
+  <div
+    :data-id="'CardsLayout'"
+    :class="`
+      h-full w-full
+    `"
+  >
     <div
       :data-id="'CardsLayout__grid'"
-      :class="'grid gap-10 grid-cols-[max-content_max-content_max-content_max-content]'"
+      :class="`
+        grid gap-y-10 gap-x-5
+        grid-cols-[repeat(auto-fill,256px)]
+        justify-center
+      `"
     >
       <slot></slot>
     </div>

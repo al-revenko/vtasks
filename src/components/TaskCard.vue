@@ -2,15 +2,15 @@
   <template v-if="props.desc || hasTasks">
     <button
       data-id="TaskCard"
-      :class="
-        `grid grid-cols-1 grid-rows-[max-content_1fr] gap-3 
-        h-72 w-64 pt-3 pl-3 pr-2 pb-3 text-start 
+      :class="`
+        max-h-72
+        pt-3 pl-3 pr-2 pb-3
+        grid grid-cols-1 grid-rows-[max-content_1fr] gap-3 
         transition-all ease-in duration-200 
         bg-white border rounded-md shadow-[0px_1px_5px_1px]
+        text-start 
         overflow-hidden
-        ` +
-        ' ' +
-        shadowColor
+        ` + shadowColor
       "
       @click="emit('click', props.id)"
     >
@@ -52,9 +52,7 @@
         transition-all ease-in duration-200 
         bg-white border rounded-md shadow-[0px_1px_8px_1px]
         overflow-hidden
-        ` +
-        ' ' +
-        shadowColor
+        ` + shadowColor
       "
       @click="emit('click', props.id)"
     >
@@ -103,7 +101,7 @@ const emit = defineEmits(['click'])
 
 const shadowColor = computed(() =>
   isDoneModel.value
-    ? 'shadow-lime-600/65 hover:shadow-lime-600/90'
-    : 'shadow-slate-300 hover:shadow-rose-500',
+    ? ' shadow-lime-600/65 hover:shadow-lime-600/90'
+    : ' shadow-slate-300 hover:shadow-rose-500',
 )
 </script>
