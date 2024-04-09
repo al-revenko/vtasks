@@ -1,10 +1,24 @@
 <template>
   <div
     data-id="ModalWindow"
-    :class="'flex items-center justify-center h-screen w-screen fixed left-0 top-0 backdrop-blur-sm'"
+    :class="`
+      h-screen w-screen
+      pt-12
+      flex items-center justify-center 
+      fixed left-0 top-0 
+      backdrop-blur-sm
+    `"
     v-show="isShowModel ? true : ''"
   >
-    <div :class="'min-h-52 min-w-80 bg-white border rounded-md drop-shadow-lg relative p-4'">
+    <div
+      :class="`
+        w-full h-full max-h-screen
+        md:min-h-52 md:min-w-72 md:h-auto md:w-auto 
+        p-4
+        relative 
+        bg-white border rounded-md drop-shadow-lg 
+      `"
+    >
       <div :class="'flex justify-between gap-2 items-center'">
         <div :class="'flex w-full'">
           <slot name="head" />

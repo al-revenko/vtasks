@@ -12,8 +12,9 @@
       @submit.prevent="() => (callbacks.onSubmit(), (isShowModel = false))"
       id="createForm"
       :class="`
+        min-w-96
         grid grid-cols-1 grid-rows-[repeat(3, max-content)] grid-flow-row gap-4 
-        pt-6 px-3 w-96
+        pt-6
       `"
     >
       <input
@@ -44,7 +45,7 @@
           </div>
         </label>
       </div>
-      <ul :class="`grid grid-col-1 gap-y-2 max-h-28 ` + microTasksScroll " v-if="microTasks.length > 0">
+      <ul :class="`grid grid-col-1 gap-y-2 ` + microTasksScroll " v-if="microTasks.length > 0">
         <li
           :class="`flex justify-between items-center gap-2`"
           v-for="(task, i) in microTasks"
