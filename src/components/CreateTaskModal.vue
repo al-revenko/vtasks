@@ -17,54 +17,85 @@
         pt-6
       `"
     >
-      <input
-        type="text"
-        placeholder="Имя"
-        class="bg-transparent input input-bordered w-full"
-        v-model="formData.title"
-      />
-      <textarea
-        class="textarea textarea-bordered bg-transparent max-h-96"
-        placeholder="Описание"
-        v-model="formData.desc"
-      ></textarea>
-      <div>
-        <label class="form-control w-full">
-          <div class="label">
-            <span class="label-text">Добавить подзадачу</span>
-            <span class="label-text">Колличесто: {{ microTasks.length }}/16</span>
-          </div>
-          <div :class="`flex gap-2`">
+      <label class="input input-bordered flex items-center gap-2 bg-transparent w-full">
+        <input
+          type="text"
+          class="grow"
+          placeholder="Имя"
+          required
+          :maxlength="titleMaxLength"
+          v-model="formData.title"
+        />
+        <span class="badge">{{ formData.title.length + '/' + titleMaxLength }}</span>
+      </label>
+
+      <label class="form-control">
+        <textarea
+          class="textarea textarea-bordered bg-transparent max-h-44"
+          placeholder="Описание"
+          :maxlength="descMaxLength"
+          v-model="formData.desc"
+        ></textarea>
+        <div class="label">
+          <span class="label-text-alt"></span>
+          <span class="label-text-alt">{{
+            (formData.desc?.length ?? 0) + '/' + descMaxLength
+          }}</span>
+        </div>
+      </label>
+    </form>
+    <form @submit.prevent="callbacks.onMicroTaskAdd">
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Добавить подзадачу</span>
+          <span class="label-text">Задач: {{ microTasks.length }}/{{ microTasksMaxCount }}</span>
+        </div>
+        <div :class="`flex gap-2`">
+          <label class="input input-bordered flex items-center gap-2 bg-transparent w-full">
             <input
               type="text"
+              class="grow"
               placeholder="Имя подзадачи"
-              class="input input-bordered w-full bg-transparent"
+              required
+              :maxlength="titleMaxLength"
               v-model="microTaskHeading"
             />
-            <AddBtn type="button" @click="callbacks.onMicroTaskAdd" :class="'btn-md'" />
-          </div>
-        </label>
-      </div>
-      <ul :class="`grid grid-col-1 gap-y-2 ` + microTasksScroll " v-if="microTasks.length > 0">
-        <li
-          :class="`flex justify-between items-center gap-2`"
-          v-for="(task, i) in microTasks"
-          :key="i"
+            <span class="badge">{{ microTaskHeading.length + '/' + titleMaxLength }}</span>
+          </label>
+          <AddBtn type="submit" :class="'btn-md'" />
+        </div>
+      </label>
+      <template v-if="microTasks.length > 0">
+        <ul
+          :class="`
+            mt-5 h-[145px]
+            flex flex-col gap-2 
+            overflow-y-auto overflow-x-hidden
+          `"
         >
-          <span>{{ task }}</span>
-          <CloseBtn
-            type="button"
-            :class="'btn-xs'"
-            @click="() => (callbacks.onMicroTasksDelete(i))"
-          />
-        </li>
-      </ul>
+          <li
+            :class="`
+              pr-2
+              flex justify-between items-center gap-2
+            `"
+            v-for="(task, i) in microTasks"
+            :key="i"
+          >
+            <span :class="`text-sm break-words`">{{ task }}</span>
+            <CloseBtn
+              type="button"
+              :class="'btn-xs'"
+              @click="() => callbacks.onMicroTasksDelete(i)"
+            />
+          </li>
+        </ul>
+      </template>
     </form>
   </ModalWindow>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import ModalWindow from '@/components/ui/ModalWindow.vue'
 import CloseBtn from '@/components/ui/CloseBtn.vue'
 import AddBtn from '@/components/ui/AddBtn.vue'
@@ -77,11 +108,13 @@ interface IFormData {
 const isShowModel = defineModel<boolean>('isShow', { required: true })
 const emit = defineEmits(['taskCreated'])
 
+const titleMaxLength = 42
+const descMaxLength = 300
+const microTasksMaxCount = 16
+
 const formData = ref<IFormData>({ title: '' })
 const microTasks = ref<string[]>([])
 const microTaskHeading = ref<string>('')
-
-const microTasksScroll = computed(() => microTasks.value.length > 4 ? ' overflow-y-scroll ' : '')
 
 const callbacks = {
   onSubmit: () => {
@@ -96,7 +129,7 @@ const callbacks = {
   },
 
   onMicroTaskAdd() {
-    if (microTaskHeading.value.length > 0) {
+    if (microTaskHeading.value.length > 0 && microTasks.value.length < microTasksMaxCount) {
       microTasks.value.push(microTaskHeading.value)
       microTaskHeading.value = ''
     }
