@@ -19,13 +19,20 @@
         />
       </div>
     </template>
-    <div :class="'flex flex-col w-[750px] max-h-[450px] overflow-hidden'">
+    <div
+      :class="`
+        md:w-[750px] md:max-h-[450px] w-full h-full
+        flex flex-col 
+      `"
+    >
       <template v-if="hasTasks">
         <div :class="'pt-5'">
           <TasksList v-model="macroTaskDataModel.tasks" :class="'grid grid-cols-4 gap-2'" />
         </div>
       </template>
-      <p :class="'text-slate-600 pt-5 pr-8 break-words max-w-full'" v-if="props.desc">{{ desc }}</p>
+      <p :class="'text-slate-600 pt-5 pr-8 break-words w-full h-full'" v-if="props.desc">
+        {{ desc }}
+      </p>
       <AngleBtn :color="'red'" @click="callbacks.onDelete">
         <TrashCanSVG :class="'fill-white w-4 h-4'" />
       </AngleBtn>
@@ -39,7 +46,7 @@
         @click="() => (isShowModel = false)"
       />
     </template>
-    <div :class="'flex m-10 gap-2 items-center'">
+    <div :class="'flex m-10 gap-2 items-center justify-center'">
       <CheckboxInput
         v-model="isDoneModel"
         @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"

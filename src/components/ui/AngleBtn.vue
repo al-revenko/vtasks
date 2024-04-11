@@ -4,7 +4,7 @@
     :type="props.type"
     :class="
       style +
-      ' absolute cursor-pointer transition-colors ease-in duration-100 bottom-[-6px] right-[-26px] w-0 h-0 rotate-[135deg]  border-l-[40px] border-l-transparent border-b-[40px]  border-r-[40px] border-r-transparent'
+      ' absolute cursor-pointer transition-colors ease-in duration-100 bottom-[-7px] right-[-27px] w-0 h-0 rotate-[135deg]  border-l-[40px] border-l-transparent border-b-[40px]  border-r-[40px] border-r-transparent'
     "
     @click="emit('click', $event)"
   >

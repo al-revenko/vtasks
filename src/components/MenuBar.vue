@@ -5,7 +5,7 @@
     lg:w-10/12 lg:h-[90dvh] w-full h-full
     lg:justify-self-center 
     lg:rounded-md bg-zinc-700
-    sticky lg:top-[5%] top-0 z-50
+    sticky lg:top-[5%] top-0 z-20
     box-border 
     `"
   >
@@ -19,13 +19,13 @@
       flex lg:flex-col items-center lg:gap-12
       `">
         <ToggleInput
-          :class="`lg:toggle-lg toggle-md lg:order-2`"
+          :class="`lg:toggle-md toggle-md lg:order-2`"
           :state-color="true"
           :triple="true"
           @change="emit('modeChange')"
           v-model="modeModel"
         />
-        <AddBtn :class="`lg:btn-lg btn-sm mx-auto `" :color="'white'" @click="() => (formModalIsShowModel = true)" />
+        <AddBtn :class="`lg:btn-md btn-sm mx-auto `" :color="'white'" @click="() => (formModalIsShowModel = true)" />
       </div>
       <RepoLink :class="`lg:h-16 lg:w-16 w-10 h-10`" />
     </div>

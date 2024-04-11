@@ -2,10 +2,11 @@
   <template v-if="props.desc || hasTasks">
     <button
       data-id="TaskCard"
-      :class="`
+      :class="
+        `
         max-h-72
-        pt-3 pl-3 pr-2 pb-3
-        grid grid-cols-1 grid-rows-[max-content_1fr] gap-3 
+        py-3 px-3
+        grid grid-cols-1 grid-rows-[max-content_1fr] gap-2 
         transition-all ease-in duration-200 
         bg-white border rounded-md shadow-[0px_1px_5px_1px]
         text-start 
@@ -15,40 +16,44 @@
       @click="emit('click', props.id)"
     >
       <div :class="'flex items-start justify-between gap-3 max-w-full'">
-        <h3 :class="'text-lg font-medium break-words max-w-full'">{{ props.title }}</h3>
+        <h3 :class="'text-md font-medium break-words max-w-full'">{{ props.title }}</h3>
         <div :class="'pt-1'">
           <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
         </div>
       </div>
-  
+
       <template v-if="macroTaskData && hasTasks">
-        <div :class="'pl-1 pr-5'">
+        <div :class="'pt-2 pl-1 pr-5'">
           <TasksList
-            :class="'flex gap-1 flex-col flex-wrap h-44 overflow-hidden'"
+            :class="`
+              h-44 
+              flex flex-col flex-wrap gap-1
+              overflow-hidden
+            `"
             v-model="macroTaskData.tasks"
           />
         </div>
-        <div :class="'h-6 pb-2'">
+        <div :class="'h-4'">
           <ProgressBar :percentage="donePercentage" :title="donePercentage + '%'" />
         </div>
       </template>
-  
       <template v-else>
         <div :class="'fade max-w-full h-full break-words overflow-hidden'">
-          <p v-if="props.desc">
+          <p :class="`text-sm`" v-if="props.desc">
             {{ props.desc }}
           </p>
         </div>
       </template>
     </button>
   </template>
+
   <template v-else>
     <button
       data-id="TaskCard"
       :href="'/'"
       :class="
         `flex justify-center items-center 
-        h-72 w-64 pt-3 pl-3 pr-2 pb-3 
+        h-72 w-64 py-3 px-3 
         transition-all ease-in duration-200 
         bg-white border rounded-md shadow-[0px_1px_8px_1px]
         overflow-hidden
@@ -56,11 +61,9 @@
       "
       @click="emit('click', props.id)"
     >
-      <div :class="'flex items-start justify-between gap-3 max-w-full'">
-        <h3 :class="'text-lg font-medium break-words max-w-full h-max'">{{ props.title }}</h3>
-        <div :class="'pt-1'">
-          <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
-        </div>
+      <div :class="'flex flex-col gap-3 justify-center items-center max-w-full'">
+        <h3 :class="'text-md font-medium break-words h-max max-w-56'">{{ props.title }}</h3>
+        <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
       </div>
     </button>
   </template>

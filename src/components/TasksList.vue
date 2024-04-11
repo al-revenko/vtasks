@@ -9,7 +9,7 @@
             v-model="task.isDone"
             :size="'xs'"
           />
-        <span :class="'text-sm'">{{ task.title }}</span>
+        <span :class="'text-xs max-w-[85%] break-words'">{{ task.title }}</span>
       </div>
     </li>
   </ul>

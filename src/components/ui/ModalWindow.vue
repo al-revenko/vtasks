@@ -2,10 +2,9 @@
   <div
     data-id="ModalWindow"
     :class="`
-      h-screen w-screen
-      pt-12
+      h-dvh w-dvw
       flex items-center justify-center 
-      fixed left-0 top-0 
+      fixed left-0 top-0 z-50
       backdrop-blur-sm
     `"
     v-show="isShowModel ? true : ''"
@@ -16,7 +15,7 @@
         md:min-h-52 md:min-w-72 md:h-auto md:w-auto 
         p-4
         relative 
-        bg-white border rounded-md drop-shadow-lg 
+        bg-white border md:rounded-md drop-shadow-lg 
       `"
     >
       <div :class="'flex justify-between gap-2 items-center'">
