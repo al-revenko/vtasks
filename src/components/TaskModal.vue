@@ -14,6 +14,8 @@
           <ProgressBar :percentage="donePercentage" />
         </div>
         <PageLink
+          :route="'task'"
+          :params="{id: props.id.toString()}"
           :class="'h-6 w-6 mr-5 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
           @click="() => (isShowModel = false)"
         />
@@ -42,6 +44,8 @@
   <ModalWindow v-else data-id="TaskModal" v-model:is-show="isShowModel">
     <template #head>
       <PageLink
+        :route="'task'"
+        :params="{id: props.id.toString()}"
         :class="'h-7 w-7 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
         @click="() => (isShowModel = false)"
       />
