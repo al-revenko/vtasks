@@ -4,10 +4,10 @@
       <div :class="'flex gap-2 items-center min-h-10'">
           <CheckboxInput
             :tabindex="-1"
+            :class="`checkbox-sm`"
             @change="(value: boolean) => emit('statusChange', { id: task.id, status: value })"
             @click.stop
             v-model="task.isDone"
-            :size="'xs'"
           />
         <span :class="'text-xs max-w-[85%] break-words'">{{ task.title }}</span>
       </div>

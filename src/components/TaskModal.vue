@@ -5,7 +5,6 @@
         <CheckboxInput
           v-model="isDoneModel"
           @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
-          :size="'md'"
         />
         <h2 :class="'text-slate-600'">{{ props.title }}</h2>
       </div>
@@ -54,7 +53,6 @@
       <CheckboxInput
         v-model="isDoneModel"
         @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
-        :size="'md'"
       />
       <h2 :class="'text-slate-600'">{{ props.title }}</h2>
     </div>

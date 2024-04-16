@@ -18,7 +18,7 @@
       <div :class="'flex items-start justify-between gap-3 max-w-full'">
         <h3 :class="'text-md font-medium break-words max-w-full'">{{ props.title }}</h3>
         <div :class="'pt-1'">
-          <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
+          <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" />
         </div>
       </div>
 
@@ -63,7 +63,7 @@
     >
       <div :class="'flex flex-col gap-3 justify-center items-center max-w-full'">
         <h3 :class="'text-md font-medium break-words h-max max-w-56'">{{ props.title }}</h3>
-        <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" :size="'lg'" />
+        <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" />
       </div>
     </button>
   </template>
