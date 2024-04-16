@@ -4,7 +4,7 @@
     :type="'button'"
     :class="`btn btn-square btn-outline btn-ghost border-none`"
   >
-    <TrashCanSVG :class="colorClasses.svg"/>
+    <div :class="`h-full w-full px-1 py-1`"><TrashCanSVG :class="colorClasses.svg"/></div>
   </button>
 </template>
 
@@ -24,11 +24,11 @@ const colorClasses = computed<{
 
   switch (props.color) {
     case 'white':
-      colors.svg = `fill-white hover:fill-slate-100`
+      colors.svg = ` fill-white hover:fill-slate-100`
       return colors
 
     default:
-      colors.svg = `fill-neutral hover:fill-slate-600`
+      colors.svg = ` fill-neutral hover:fill-slate-600`
       return colors
   }
 })
