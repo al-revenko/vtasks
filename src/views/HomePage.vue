@@ -1,7 +1,7 @@
 <template>
   <PageLayout>
     <template #bar>
-      <MenuBar v-model:mode="mode" v-model:form-modal-is-show="formModalIsShow" />
+      <MainBar v-model:mode="mode" v-model:form-is-show="formModalIsShow" />
     </template>
     <CardsLayout>
       <template v-for="task in tasks" :key="task.id">
@@ -49,10 +49,10 @@ import isMacroTask from '@/guards/isMacroTask.guard'
 import { useTaskStore } from '@/stores/task.store'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import CardsLayout from '@/components/layouts/CardsLayout.vue'
-import MenuBar from '@/components/MenuBar.vue'
 import TaskCard from '@/components/TaskCard.vue'
 import TaskModal from '@/components/TaskModal.vue'
 import CreateTaskModal from '@/components/CreateTaskModal.vue'
+import MainBar from '@/components/MainBar.vue'
 
 const taskStore = useTaskStore()
 const mode = ref<boolean | null>(null)
