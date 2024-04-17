@@ -6,7 +6,7 @@
         ' ' +
         barColor
       "
-      :style="'width: ' + props.percentage + '%'"
+      :style="gutterDirection + props.percentage + '%'"
     >
         {{ percentage >= 10 ? props.title : null }}
     </div>
@@ -19,7 +19,10 @@ import { computed } from 'vue'
 const props = defineProps<{
   percentage: number
   title?: string
+  isVertical?: boolean 
 }>()
+
+const gutterDirection = computed(() => props.isVertical ? 'height: ' : 'width: ')
 
 const barColor = computed(() => {
   if (props.percentage === 0) {
