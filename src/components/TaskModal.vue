@@ -9,12 +9,10 @@
         <h2 :class="'text-slate-600'">{{ props.title }}</h2>
       </div>
       <div :class="'flex items-center gap-3 ml-auto'">
-        <div v-if="hasTasks" :class="'h-3 w-20 mr-5'">
-          <ProgressBar :percentage="donePercentage" />
-        </div>
+        <ProgressBar v-if="hasTasks" :class="'h-3 w-20 mr-5'" :percentage="donePercentage" />
         <PageLink
           :route="'task'"
-          :params="{id: props.id.toString()}"
+          :params="{ id: props.id.toString() }"
           :class="'h-6 w-6 mr-5 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
           @click="() => (isShowModel = false)"
         />
@@ -44,7 +42,7 @@
     <template #head>
       <PageLink
         :route="'task'"
-        :params="{id: props.id.toString()}"
+        :params="{ id: props.id.toString() }"
         :class="'h-7 w-7 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
         @click="() => (isShowModel = false)"
       />

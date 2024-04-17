@@ -1,5 +1,5 @@
 <template>
-  <div data-id="ProgressBar" class="w-full h-full bg-gray-200 rounded-full dark:bg-gray-300">
+  <div data-id="ProgressBar" class="bg-gray-200 rounded-full dark:bg-gray-300">
     <div
       :class="
         'flex justify-center items-center h-full transition-all ease-in duration-700  font-medium text-white text-xs p-0.5 leading-none rounded-full' +

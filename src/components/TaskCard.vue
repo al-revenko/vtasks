@@ -33,9 +33,7 @@
             v-model="macroTaskData.tasks"
           />
         </div>
-        <div :class="'h-4'">
-          <ProgressBar :percentage="donePercentage" :title="donePercentage + '%'" />
-        </div>
+        <ProgressBar :class="`h-4`" :percentage="donePercentage" :title="donePercentage + '%'" />
       </template>
       <template v-else>
         <div :class="'fade max-w-full h-full break-words overflow-hidden'">
