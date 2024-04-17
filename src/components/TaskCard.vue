@@ -1,5 +1,5 @@
 <template>
-  <template v-if="props.desc || hasTasks">
+  <template v-if="props.desc || macroTaskMeta.hasTasks">
     <button
       data-id="TaskCard"
       :class="
@@ -18,11 +18,11 @@
       <div :class="'flex items-start justify-between gap-3 max-w-full'">
         <h3 :class="'text-md font-medium break-words max-w-full'">{{ props.title }}</h3>
         <div :class="'pt-1'">
-          <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" />
+          <CheckboxInput @click.stop v-if="!macroTaskMeta.hasTasks" v-model="isDoneModel" />
         </div>
       </div>
 
-      <template v-if="macroTaskData && hasTasks">
+      <template v-if="macroTaskData && macroTaskMeta.hasTasks">
         <div :class="'pt-2 pl-1 pr-5'">
           <TasksList
             :class="`
@@ -33,7 +33,7 @@
             v-model="macroTaskData.tasks"
           />
         </div>
-        <ProgressBar :class="`h-4`" :percentage="donePercentage" :title="donePercentage + '%'" />
+        <ProgressBar :class="`h-4`" :percentage="macroTaskMeta.donePercentage || 0" :title="(macroTaskMeta.donePercentage || 0) + '%'" />
       </template>
       <template v-else>
         <div :class="'fade max-w-full h-full break-words overflow-hidden'">
@@ -61,7 +61,7 @@
     >
       <div :class="'flex flex-col gap-3 justify-center items-center max-w-full'">
         <h3 :class="'text-md font-medium break-words h-max max-w-56'">{{ props.title }}</h3>
-        <CheckboxInput @click.stop v-if="!hasTasks" v-model="isDoneModel" />
+        <CheckboxInput @click.stop v-if="!macroTaskMeta.hasTasks" v-model="isDoneModel" />
       </div>
     </button>
   </template>
@@ -96,7 +96,7 @@ const macroTaskDataModel = defineModel<{
   },
 })
 
-const { hasTasks, donePercentage } = useMacroTaskMeta(macroTaskDataModel)
+const macroTaskMeta = useMacroTaskMeta(macroTaskDataModel)
 
 const emit = defineEmits(['click'])
 

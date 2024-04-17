@@ -1,5 +1,5 @@
 <template>
-  <ModalWindow v-if="props.desc || hasTasks" data-id="TaskModal" v-model:is-show="isShowModel">
+  <ModalWindow v-if="props.desc || macroTaskMeta.hasTasks" data-id="TaskModal" v-model:is-show="isShowModel">
     <template #head>
       <div :class="'flex gap-3 items-center'">
         <CheckboxInput
@@ -9,7 +9,7 @@
         <h2 :class="'text-slate-600'">{{ props.title }}</h2>
       </div>
       <div :class="'flex items-center gap-3 ml-auto'">
-        <ProgressBar v-if="hasTasks" :class="'h-3 w-20 mr-5'" :percentage="donePercentage" />
+        <ProgressBar v-if="macroTaskMeta.hasTasks" :class="'h-3 w-20 mr-5'" :percentage="macroTaskMeta.donePercentage || 0" />
         <PageLink
           :route="'task'"
           :params="{ id: props.id.toString() }"
@@ -24,7 +24,7 @@
         flex flex-col 
       `"
     >
-      <template v-if="hasTasks">
+      <template v-if="macroTaskMeta.hasTasks">
         <div :class="'pt-5'">
           <TasksList v-model="macroTaskDataModel.tasks" :class="'grid grid-cols-4 gap-2'" />
         </div>
@@ -105,5 +105,5 @@ const callbacks = {
   },
 }
 
-const { hasTasks, donePercentage } = useMacroTaskMeta(macroTaskDataModel)
+const macroTaskMeta = useMacroTaskMeta(macroTaskDataModel)
 </script>
