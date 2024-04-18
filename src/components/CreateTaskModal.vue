@@ -2,7 +2,7 @@
   <ModalWindow v-model:is-show="isShowModel">
     <template #head>
       <div :class="'flex justify-between w-full'">
-        <h3 :class="'font-semibold'">Создать задачу</h3>
+        <TitleSecond>Создать задачу</TitleSecond>
         <button form="createForm" class="btn btn-neutral mx-auto btn-sm text-white" type="submit">
           Готово
         </button>
@@ -96,9 +96,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import {titleMaxLength, descMaxLength, microTasksMaxCount} from '@/inputConfig'
 import ModalWindow from '@/components/ui/ModalWindow.vue'
 import CloseBtn from '@/components/ui/CloseBtn.vue'
 import AddBtn from '@/components/ui/AddBtn.vue'
+import TitleSecond from '@/components/ui/TitleSecond.vue'
 
 interface IFormData {
   title: string
@@ -107,10 +109,6 @@ interface IFormData {
 
 const isShowModel = defineModel<boolean>('isShow', { required: true })
 const emit = defineEmits(['taskCreated'])
-
-const titleMaxLength = 42
-const descMaxLength = 300
-const microTasksMaxCount = 16
 
 const formData = ref<IFormData>({ title: '' })
 const microTasks = ref<string[]>([])

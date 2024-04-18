@@ -1,15 +1,23 @@
 <template>
-  <ModalWindow v-if="props.desc || macroTaskMeta.hasTasks" data-id="TaskModal" v-model:is-show="isShowModel">
+  <ModalWindow
+    v-if="props.desc || macroTaskMeta.hasTasks"
+    data-id="TaskModal"
+    v-model:is-show="isShowModel"
+  >
     <template #head>
       <div :class="'flex gap-3 items-center'">
         <CheckboxInput
           v-model="isDoneModel"
           @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
         />
-        <h2 :class="'text-slate-600'">{{ props.title }}</h2>
+        <TitleSecond>{{ props.title }}</TitleSecond>
       </div>
       <div :class="'flex items-center gap-3 ml-auto'">
-        <ProgressBar v-if="macroTaskMeta.hasTasks" :class="'h-3 w-20 mr-5'" :percentage="macroTaskMeta.donePercentage || 0" />
+        <ProgressBar
+          v-if="macroTaskMeta.hasTasks"
+          :class="'h-3 w-20 mr-5'"
+          :percentage="macroTaskMeta.donePercentage || 0"
+        />
         <PageLink
           :route="'task'"
           :params="{ id: props.id.toString() }"
@@ -29,9 +37,10 @@
           <TasksList v-model="macroTaskDataModel.tasks" :class="'grid grid-cols-4 gap-2'" />
         </div>
       </template>
-      <p :class="'text-slate-600 pt-5 pr-8 break-words w-full h-full'" v-if="props.desc">
+      <TextP :class="`pt-5 pr-8`" v-if="props.desc">
         {{ desc }}
-      </p>
+      </TextP>
+
       <AngleBtn :color="'red'" @click="callbacks.onDelete">
         <TrashCanSVG :class="'fill-white w-4 h-4'" />
       </AngleBtn>
@@ -52,7 +61,7 @@
         v-model="isDoneModel"
         @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
       />
-      <h2 :class="'text-slate-600'">{{ props.title }}</h2>
+      <TitleSecond>{{ props.title }}</TitleSecond>
     </div>
     <AngleBtn :color="'red'" @click="callbacks.onDelete">
       <TrashCanSVG :class="'fill-white w-4 h-4'" />
@@ -69,6 +78,8 @@ import PageLink from '@/components/ui/PageLink.vue'
 import CheckboxInput from '@/components/ui/CheckboxInput.vue'
 import AngleBtn from '@/components/ui/AngleBtn.vue'
 import TrashCanSVG from '@/components/svg/TrashCanSVG.vue'
+import TitleSecond from '@/components/ui/TitleSecond.vue'
+import TextP from '@/components/ui/TextP.vue'
 
 const props = defineProps<{
   id: number

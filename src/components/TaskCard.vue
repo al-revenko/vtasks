@@ -16,7 +16,7 @@
       @click="emit('click', props.id)"
     >
       <div :class="'flex items-start justify-between gap-3 max-w-full'">
-        <h3 :class="'text-md font-medium break-words max-w-full'">{{ props.title }}</h3>
+        <TitleSecond :class="'max-w-56'">{{ props.title }}</TitleSecond>
         <div :class="'pt-1'">
           <CheckboxInput @click.stop v-if="!macroTaskMeta.hasTasks" v-model="isDoneModel" />
         </div>
@@ -36,10 +36,10 @@
         <ProgressBar :class="`h-4`" :percentage="macroTaskMeta.donePercentage || 0" :title="(macroTaskMeta.donePercentage || 0) + '%'" />
       </template>
       <template v-else>
-        <div :class="'fade max-w-full h-full break-words overflow-hidden'">
-          <p :class="`text-sm`" v-if="props.desc">
+        <div v-if="props.desc" :class="'fade max-w-full h-full overflow-hidden'">
+          <TextP>
             {{ props.desc }}
-          </p>
+          </TextP>
         </div>
       </template>
     </button>
@@ -60,7 +60,7 @@
       @click="emit('click', props.id)"
     >
       <div :class="'flex flex-col gap-3 justify-center items-center max-w-full'">
-        <h3 :class="'text-md font-medium break-words h-max max-w-56'">{{ props.title }}</h3>
+        <TitleSecond :class="'max-w-56'">{{ props.title }}</TitleSecond>
         <CheckboxInput @click.stop v-if="!macroTaskMeta.hasTasks" v-model="isDoneModel" />
       </div>
     </button>
@@ -73,6 +73,8 @@ import TasksList from '@/components/TasksList.vue'
 import CheckboxInput from '@/components/ui/CheckboxInput.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'
 import useMacroTaskMeta from '@/composables/useMacroTaskMeta'
+import TitleSecond from '@/components/ui/TitleSecond.vue'
+import TextP from '@/components/ui/TextP.vue'
 
 const props = defineProps<{
   id: number
