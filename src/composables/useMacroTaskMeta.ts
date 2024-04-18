@@ -11,17 +11,17 @@ interface IMacroData {
   tasks: object[]
 }
 
-function useMacroTaskMeta(macroData: Ref<IMacroData | undefined> | IMacroData | undefined): ComputedRef<ITaskMeta> {
+function useMacroTaskMeta(macroData: Ref<IMacroData> | IMacroData): ComputedRef<ITaskMeta> {
   return computed(() => {
 
-    const value =  toValue(macroData)
+    const value = toValue(macroData)
 
     const taskMeta: ITaskMeta = {
       hasTasks: false,
       donePercentage: 0,
     }
 
-    if (value && value.tasks.length > 0) {
+    if (value.tasks.length > 0) {
       const { tasks, doneCount } = value
 
       if (tasks.length > 0) {
