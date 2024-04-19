@@ -1,8 +1,7 @@
 <template>
   <button
     data-id="AddBtn"
-    :type="props.type"
-    @click="emit('click')"
+    :type="'button'"
     :class="`btn btn-square btn-outline border-none` + colorClasses.btn"
   >
     <PlusSVG :class="colorClasses.svg" />
@@ -10,12 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type ButtonHTMLAttributes } from 'vue'
+import { computed } from 'vue'
 import PlusSVG from '@/components/svg/PlusSVG.vue'
 
 const props = defineProps<{
   color?: 'neutral' | 'white'
-  type?: ButtonHTMLAttributes['type']
 }>()
 
 const colorClasses = computed<{
@@ -35,6 +33,4 @@ const colorClasses = computed<{
       return colors
   }
 })
-
-const emit = defineEmits(['click'])
 </script>
