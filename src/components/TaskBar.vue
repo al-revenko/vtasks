@@ -1,6 +1,6 @@
 <template>
   <MenuBarLayout>
-    <BackPageBtn :class="`lg:btn-md btn-sm`" :color="'white'" @click="callbacks.onClick" />
+    <BackBtn :class="`lg:btn-md btn-sm`" :color="'white'" @click="callbacks.onClick" />
     <div
       v-if="props.percentage != undefined"
       :class="`
@@ -27,7 +27,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useBreakpoints from '@/composables/useBreakpoints'
 import MenuBarLayout from '@/components/layouts/MenuBarLayout.vue'
-import BackPageBtn from '@/components/ui/BackPageBtn.vue'
+import BackBtn from '@/components/ui/BackBtn.vue'
 import CheckboxInput from '@/components/ui/CheckboxInput.vue'
 import DeleteBtn from '@/components/ui/DeleteBtn.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'

@@ -1,20 +1,17 @@
 <template>
-  <button
-    data-id="CloseBtn"
-    :type="'button'"
+  <BtnLayout
+    :data-id="`CloseBtn`"
     :class="`
-      btn btn-square btn-outline 
-      border-slate-500 text-slate-500  
-      hover:bg-rose-600 hover:border-rose-600 hover:text-white
-    `"
-    @click="emit('click')"
+    btn-outline 
+    hover:bg-rose-600  
+    border-slate-500 hover:border-rose-600
+    text-slate-500 hover:text-white`"
   >
-    <CrossSVG />
-  </button>
+    <CrossSVG :class="`w-full h-full`" />
+  </BtnLayout>
 </template>
 
 <script setup lang="ts">
+import BtnLayout from '@/components/layouts/BtnLayout.vue'
 import CrossSVG from '@/components/svg/CrossSVG.vue'
-
-const emit = defineEmits(['click'])
 </script>

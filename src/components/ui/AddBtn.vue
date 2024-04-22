@@ -1,36 +1,14 @@
 <template>
-  <button
-    data-id="AddBtn"
-    :type="'button'"
-    :class="`btn btn-square btn-outline border-none` + colorClasses.btn"
-  >
-    <PlusSVG :class="colorClasses.svg" />
-  </button>
+  <BtnLayout :data-id="'AddBtn'" :class="`rounded-none`" :color="props.color ?? 'neutral'">
+    <PlusSVG :class="`w-[80%] h-[80%]`"/>
+  </BtnLayout>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import BtnLayout from '@/components/layouts/BtnLayout.vue';
 import PlusSVG from '@/components/svg/PlusSVG.vue'
 
 const props = defineProps<{
   color?: 'neutral' | 'white'
 }>()
-
-const colorClasses = computed<{
-  btn: string
-  svg: string
-}>(() => {
-  const colors = { svg: '', btn: '' }
-
-  switch (props.color) {
-    case 'white':
-      colors.svg = ` fill-white hover:fill-slate-100 `
-      return colors
-
-    default:
-      colors.btn = ` bg-white hover:bg-white border-neutral `
-      colors.svg = ` fill-neutral hover:fill-slate-700 `
-      return colors
-  }
-})
 </script>
