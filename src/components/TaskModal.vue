@@ -11,6 +11,7 @@
           @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
         />
         <TitleSecond>{{ props.title }}</TitleSecond>
+        <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete"/>
       </div>
       <div :class="'flex items-center gap-3 ml-auto'">
         <ProgressBar
@@ -21,7 +22,6 @@
         <PageLink
           :route="'task'"
           :params="{ id: props.id.toString() }"
-          
           @click="() => (isShowModel = false)"
         />
       </div>
@@ -40,10 +40,6 @@
       <TextP :class="`pt-5 pr-8`" v-if="props.desc">
         {{ desc }}
       </TextP>
-
-      <AngleBtn :color="'red'" @click="callbacks.onDelete">
-        <TrashCanSVG :class="'fill-white w-4 h-4'" />
-      </AngleBtn>
     </div>
   </ModalWindow>
 
@@ -62,10 +58,8 @@
         @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
       />
       <TitleSecond>{{ props.title }}</TitleSecond>
+      <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete"/>
     </div>
-    <AngleBtn :color="'red'" @click="callbacks.onDelete">
-      <TrashCanSVG :class="'fill-white w-4 h-4'" />
-    </AngleBtn>
   </ModalWindow>
 </template>
 
@@ -76,8 +70,7 @@ import TasksList from '@/components/TasksList.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'
 import PageLink from '@/components/ui/PageLink.vue'
 import CheckboxInput from '@/components/ui/CheckboxInput.vue'
-import AngleBtn from '@/components/ui/AngleBtn.vue'
-import TrashCanSVG from '@/components/svg/TrashCanSVG.vue'
+import DeleteBtn from '@/components/ui/DeleteBtn.vue'
 import TitleSecond from '@/components/ui/TitleSecond.vue'
 import TextP from '@/components/ui/TextP.vue'
 
