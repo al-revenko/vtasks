@@ -21,7 +21,7 @@
         <PageLink
           :route="'task'"
           :params="{ id: props.id.toString() }"
-          :class="'h-6 w-6 mr-5 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
+          
           @click="() => (isShowModel = false)"
         />
       </div>
