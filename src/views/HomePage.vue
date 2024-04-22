@@ -39,7 +39,7 @@
       @task-delete="callbacks.onTaskDelete"
     />
   </template>
-  <CreateTaskModal v-model:is-show="formModalIsShow" @task-created="callbacks.onTaskCreated" />
+  <TaskFormModal v-model:is-show="formModalIsShow" @task-created="callbacks.onTaskCreated" />
 </template>
 
 <script setup lang="ts">
@@ -51,7 +51,7 @@ import PageLayout from '@/components/layouts/PageLayout.vue'
 import CardsLayout from '@/components/layouts/CardsLayout.vue'
 import TaskCard from '@/components/TaskCard.vue'
 import TaskModal from '@/components/TaskModal.vue'
-import CreateTaskModal from '@/components/CreateTaskModal.vue'
+import TaskFormModal from '@/components/TaskFormModal.vue'
 import MainBar from '@/components/MainBar.vue'
 
 const taskStore = useTaskStore()
