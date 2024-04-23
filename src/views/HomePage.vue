@@ -90,7 +90,7 @@ const callbacks = {
   },
 
   onTaskCreated(formData: { title: string; desc?: string; microTasks?: string[] }) {
-    taskStore.addTask(formData.title, formData.desc, formData.microTasks)
+    taskStore.addTask(formData.title, { desc: formData.desc, microTasks: formData.microTasks })
   },
 }
 </script>

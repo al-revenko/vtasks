@@ -1,6 +1,6 @@
 import { ref, watch, reactive, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import type {  ITask } from '@/types/task.interface'
+import type { ITask } from '@/types/task.interface'
 
 interface ITaskStore {
   __initId: Ref<number>
@@ -29,7 +29,7 @@ const useTaskStore = defineStore('tasks', () => {
         desc,
         createdAt: Date.now(),
         isDone: false,
-        nestedData: null
+        nestedData: null,
       }
     },
 
@@ -47,30 +47,42 @@ const useTaskStore = defineStore('tasks', () => {
       }, 0)
     },
 
-    addTask(title: string, desc?: string, microTasks?: string[]): ITask {
-      if (microTasks && microTasks.length > 0) {
-        let microID: number = 1
+    addTask(
+      title: string,
+      optional?: {
+        desc?: string
+        microTasks?: string[]
+      },
+    ): ITask {
+      const task = reactive<ITask>(this.createTask(state.__initId.value++, title, optional?.desc))
 
-        const task = reactive<ITask<'macro'>>({
-          ...this.createTask(state.__initId.value++, title, desc),
-          nestedData: {
-            tasks: microTasks.map((title) => this.createTask(microID++, title)),
-            doneCount: 0,
-          },
-        })
-
-        watch(task.nestedData.tasks, () => this.updateDoneCount(task))
-
-        state.tasks.value.push(task)
-
-        return task
+      if (optional?.microTasks && optional.microTasks.length > 0) {
+        this.addMicroTasks(task, optional.microTasks)
       }
-
-      const task: ITask = this.createTask(state.__initId.value++, title, desc)
 
       state.tasks.value.push(task)
 
       return task
+    },
+
+    addMicroTasks(target: ITask, titles: string[]) {
+      let initId: number = target.nestedData ? this.findLastId(target.nestedData.tasks) : 0
+
+      const microTasks: ITask[] = titles.map((title) => this.createTask(initId++, title))
+
+      if (target.nestedData) {
+        target.nestedData.tasks.push(...microTasks)
+        return target
+      }
+
+      target.nestedData = {
+        doneCount: 0,
+        tasks: microTasks,
+      }
+
+      watch(target.nestedData.tasks, () => this.updateDoneCount(target))
+
+      return target
     },
 
     deleteTaskByID(id: number) {
@@ -125,7 +137,10 @@ const useTaskStore = defineStore('tasks', () => {
   }
 
   demo.map((task) => {
-    actions.addTask(task.title, task.desc, task.microTasks)
+    actions.addTask(task.title, {
+      desc: task.desc,
+      microTasks: task.microTasks
+    })
   })
 
   return { ...state, ...actions }
