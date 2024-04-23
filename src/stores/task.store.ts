@@ -80,7 +80,7 @@ const useTaskStore = defineStore('tasks', () => {
         tasks: microTasks,
       }
 
-      watch(target.nestedData.tasks, () => this.updateDoneCount(target))
+      watch(target.nestedData.tasks, () => this.updateNestedData(target))
 
       return target
     },
@@ -89,27 +89,34 @@ const useTaskStore = defineStore('tasks', () => {
       state.tasks.value = state.tasks.value.filter((task) => task.id !== id)
     },
 
-    updateDoneCount(macroTask: ITask<'macro'>) {
-      const { tasks } = macroTask.nestedData
+    updateNestedData(target: ITask) {
+      if (target.nestedData === null) {
+        return false
+      }
+
+      const { tasks } = target.nestedData
+
+      if (tasks.length === 0) {
+        target.nestedData = null
+        return true
+      }
+
       const doneCount = tasks.reduce((acc, task) => {
         if (task.isDone) {
           return acc + 1
         }
-
         return acc
       }, 0)
 
-      macroTask.nestedData.doneCount = doneCount
+      target.nestedData.doneCount = doneCount
 
       if (doneCount === tasks.length) {
-        macroTask.isDone = true
-        return macroTask
+        target.isDone = true
+      } else if (doneCount < tasks.length) {
+        target.isDone = false
       }
 
-      if (doneCount < tasks.length) {
-        macroTask.isDone = false
-        return macroTask
-      }
+      return true
     },
 
     forceTaskStatus(id: number, status: boolean): ITask | null {
@@ -139,7 +146,7 @@ const useTaskStore = defineStore('tasks', () => {
   demo.map((task) => {
     actions.addTask(task.title, {
       desc: task.desc,
-      microTasks: task.microTasks
+      microTasks: task.microTasks,
     })
   })
 
