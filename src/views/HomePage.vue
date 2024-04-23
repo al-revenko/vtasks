@@ -6,7 +6,7 @@
     <CardsLayout>
       <template v-for="task in tasks" :key="task.id">
         <TaskCard
-          v-if="isMacroTask(task)"
+          v-if="task.nestedData"
           v-bind="task"
           v-model:is-done="task.isDone"
           v-model:macro-task-data="task.nestedData"
@@ -23,7 +23,7 @@
   </PageLayout>
   <template v-if="currentTask">
     <TaskModal
-      v-if="isMacroTask(currentTask)"
+      v-if="currentTask.nestedData"
       v-bind="currentTask"
       v-model:is-done="currentTask.isDone"
       v-model:macro-task-data="currentTask.nestedData"
@@ -45,7 +45,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { ITask } from '@/types/task.interface'
-import isMacroTask from '@/guards/isMacroTask.guard'
 import { useTaskStore } from '@/stores/task.store'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import CardsLayout from '@/components/layouts/CardsLayout.vue'

@@ -1,14 +1,13 @@
-export interface ITask {
+export interface INestedData {
+  tasks: ITask[]
+  doneCount: number
+}
+
+export interface ITask<T extends 'macro' | 'micro' | unknown = unknown> {
   id: number
   title: string
   desc?: string
   isDone: boolean
   createdAt: number
-}
-
-export interface IMacroTask extends ITask {
-  nestedData: {
-    tasks: ITask[]
-    doneCount: number
-  }
+  nestedData: T extends 'macro' ? INestedData : T extends 'micro' ? null : INestedData | null
 }

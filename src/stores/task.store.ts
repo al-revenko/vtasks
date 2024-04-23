@@ -1,11 +1,10 @@
 import { ref, watch, reactive, type Ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { IMacroTask, ITask } from '@/types/task.interface'
-import isMacroTask from '@/guards/isMacroTask.guard'
+import type {  ITask } from '@/types/task.interface'
 
 interface ITaskStore {
   __initId: Ref<number>
-  tasks: Ref<(ITask | IMacroTask)[]>
+  tasks: Ref<ITask[]>
 }
 
 const useTaskStore = defineStore('tasks', () => {
@@ -15,11 +14,11 @@ const useTaskStore = defineStore('tasks', () => {
   }
 
   const actions = {
-    getTaskById(id: number): ITask | IMacroTask | undefined {
+    getTaskById(id: number): ITask | undefined {
       return state.tasks.value.find((task) => task.id === id)
     },
 
-    getTasksByStatus(status: boolean, tasksArray: (ITask | IMacroTask)[]): (ITask | IMacroTask)[] {
+    getTasksByStatus(status: boolean, tasksArray: ITask[]): ITask[] {
       return tasksArray.filter((task) => task.isDone === status)
     },
 
@@ -30,13 +29,29 @@ const useTaskStore = defineStore('tasks', () => {
         desc,
         createdAt: Date.now(),
         isDone: false,
+        nestedData: null
       }
     },
 
-    addTask(title: string, desc?: string, microTasks?: string[]): ITask | IMacroTask {
+    findLastId(tasks: ITask[]): number {
+      if (tasks.length === 0) {
+        return 0
+      }
+
+      return tasks.reduce((lastId, task) => {
+        if (task.id > lastId) {
+          return task.id
+        }
+
+        return lastId
+      }, 0)
+    },
+
+    addTask(title: string, desc?: string, microTasks?: string[]): ITask {
       if (microTasks && microTasks.length > 0) {
         let microID: number = 1
-        const task = reactive<IMacroTask>({
+
+        const task = reactive<ITask<'macro'>>({
           ...this.createTask(state.__initId.value++, title, desc),
           nestedData: {
             tasks: microTasks.map((title) => this.createTask(microID++, title)),
@@ -62,7 +77,7 @@ const useTaskStore = defineStore('tasks', () => {
       state.tasks.value = state.tasks.value.filter((task) => task.id !== id)
     },
 
-    updateDoneCount(macroTask: IMacroTask) {
+    updateDoneCount(macroTask: ITask<'macro'>) {
       const { tasks } = macroTask.nestedData
       const doneCount = tasks.reduce((acc, task) => {
         if (task.isDone) {
@@ -85,14 +100,14 @@ const useTaskStore = defineStore('tasks', () => {
       }
     },
 
-    forceTaskStatus(id: number, status: boolean): ITask | IMacroTask | null {
+    forceTaskStatus(id: number, status: boolean): ITask | null {
       const task = this.getTaskById(id)
 
       if (!task) {
         return null
       }
 
-      if (!isMacroTask(task)) {
+      if (!task.nestedData) {
         task.isDone = status
         return task
       }
