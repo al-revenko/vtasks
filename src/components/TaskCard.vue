@@ -15,18 +15,18 @@
       "
       @click="emit('click', props.id)"
     >
-      <div :class="'flex items-start justify-between gap-3 max-w-full'">
-        <TitleSecond :class="'max-w-56'">{{ props.title }}</TitleSecond>
+      <div :class="'flex justify-between gap-3 max-w-full'">
+        <TitleSecond :class="'min-w-0'">{{ props.title }}</TitleSecond>
         <div :class="'pt-1'">
           <CheckboxInput @click.stop v-if="!nestedDataModel" v-model="isDoneModel" />
         </div>
       </div>
 
       <template v-if="nestedDataModel">
-        <div :class="'pt-2 pl-1 pr-5'">
+        <div :class="'pl-1 pr-5'">
           <TasksList
             :class="`
-              h-44 
+              max-h-44 
               flex flex-col flex-wrap gap-1
               overflow-hidden
             `"
