@@ -6,16 +6,9 @@
     <CardsLayout>
       <template v-for="task in tasks" :key="task.id">
         <TaskCard
-          v-if="task.nestedData"
           v-bind="task"
           v-model:is-done="task.isDone"
-          v-model:macro-task-data="task.nestedData"
-          @click="callbacks.onTaskCardClick"
-        />
-        <TaskCard
-          v-else
-          v-bind="task"
-          v-model:is-done="task.isDone"
+          v-model:nested-data="task.nested"
           @click="callbacks.onTaskCardClick"
         />
       </template>
@@ -23,19 +16,11 @@
   </PageLayout>
   <template v-if="currentTask">
     <TaskModal
-      v-if="currentTask.nestedData"
       v-bind="currentTask"
       v-model:is-done="currentTask.isDone"
-      v-model:macro-task-data="currentTask.nestedData"
+      v-model:nested-data="currentTask.nested"
       v-model:is-show="taskModalIsShow"
       @status-change="callbacks.onStatusChange"
-      @task-delete="callbacks.onTaskDelete"
-    />
-    <TaskModal
-      v-else
-      v-bind="currentTask"
-      v-model:is-done="currentTask.isDone"
-      v-model:is-show="taskModalIsShow"
       @task-delete="callbacks.onTaskDelete"
     />
   </template>

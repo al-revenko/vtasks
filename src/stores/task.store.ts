@@ -26,10 +26,10 @@ const useTaskStore = defineStore('tasks', () => {
       return {
         id,
         title,
-        desc,
+        desc: desc ?? '',
         createdAt: Date.now(),
         isDone: false,
-        nestedData: null,
+        nested: null,
       }
     },
 
@@ -66,21 +66,23 @@ const useTaskStore = defineStore('tasks', () => {
     },
 
     addMicroTasks(target: ITask, titles: string[]) {
-      let initId: number = target.nestedData ? this.findLastId(target.nestedData.tasks) : 0
+      let initId: number = target.nested ? this.findLastId(target.nested.tasks) : 0
 
       const microTasks: ITask[] = titles.map((title) => this.createTask(initId++, title))
 
-      if (target.nestedData) {
-        target.nestedData.tasks.push(...microTasks)
+      if (target.nested) {
+        target.nested.tasks.push(...microTasks)
         return target
       }
 
-      target.nestedData = {
+      target.nested = {
         doneCount: 0,
         tasks: microTasks,
       }
 
-      watch(target.nestedData.tasks, () => this.updateNestedData(target))
+      target.isDone = false
+
+      watch(target.nested.tasks, () => this.updateNestedData(target))
 
       return target
     },
@@ -90,14 +92,14 @@ const useTaskStore = defineStore('tasks', () => {
     },
 
     updateNestedData(target: ITask) {
-      if (target.nestedData === null) {
+      if (target.nested === null) {
         return false
       }
 
-      const { tasks } = target.nestedData
+      const { tasks } = target.nested
 
       if (tasks.length === 0) {
-        target.nestedData = null
+        target.nested = null
         return true
       }
 
@@ -108,7 +110,7 @@ const useTaskStore = defineStore('tasks', () => {
         return acc
       }, 0)
 
-      target.nestedData.doneCount = doneCount
+      target.nested.doneCount = doneCount
 
       if (doneCount === tasks.length) {
         target.isDone = true
@@ -126,19 +128,19 @@ const useTaskStore = defineStore('tasks', () => {
         return null
       }
 
-      if (!task.nestedData) {
+      if (!task.nested) {
         task.isDone = status
         return task
       }
 
       if (status === true) {
-        task.nestedData.tasks.forEach((task) => (task.isDone = true))
-        task.nestedData.doneCount = task.nestedData.tasks.length
+        task.nested.tasks.forEach((task) => (task.isDone = true))
+        task.nested.doneCount = task.nested.tasks.length
         return task
       }
 
-      task.nestedData.tasks.forEach((task) => (task.isDone = false))
-      task.nestedData.doneCount = 0
+      task.nested.tasks.forEach((task) => (task.isDone = false))
+      task.nested.doneCount = 0
       return task
     },
   }

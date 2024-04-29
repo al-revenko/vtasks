@@ -1,5 +1,5 @@
 <template>
-  <template v-if="props.desc || macroTaskMeta.hasTasks">
+  <template v-if="props.desc || nestedDataModel">
     <button
       data-id="TaskCard"
       :class="
@@ -18,11 +18,11 @@
       <div :class="'flex items-start justify-between gap-3 max-w-full'">
         <TitleSecond :class="'max-w-56'">{{ props.title }}</TitleSecond>
         <div :class="'pt-1'">
-          <CheckboxInput @click.stop v-if="!macroTaskMeta.hasTasks" v-model="isDoneModel" />
+          <CheckboxInput @click.stop v-if="!nestedDataModel" v-model="isDoneModel" />
         </div>
       </div>
 
-      <template v-if="macroTaskData && macroTaskMeta.hasTasks">
+      <template v-if="nestedDataModel">
         <div :class="'pt-2 pl-1 pr-5'">
           <TasksList
             :class="`
@@ -30,10 +30,10 @@
               flex flex-col flex-wrap gap-1
               overflow-hidden
             `"
-            v-model="macroTaskData.tasks"
+            v-model="nestedDataModel.tasks"
           />
         </div>
-        <ProgressBar :class="`h-4`" :percentage="macroTaskMeta.donePercentage || 0" :title="(macroTaskMeta.donePercentage || 0) + '%'" />
+        <ProgressBar :class="`h-4`" :percentage="percentage" :title="percentage + '%'" />
       </template>
       <template v-else>
         <div v-if="props.desc" :class="'fade max-w-full h-full overflow-hidden'">
@@ -61,18 +61,18 @@
     >
       <div :class="'flex flex-col gap-3 justify-center items-center max-w-full'">
         <TitleSecond :class="'max-w-56'">{{ props.title }}</TitleSecond>
-        <CheckboxInput @click.stop v-if="!macroTaskMeta.hasTasks" v-model="isDoneModel" />
+        <CheckboxInput @click.stop v-if="!nestedDataModel" v-model="isDoneModel" />
       </div>
     </button>
   </template>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
+import usePercentage from '@/composables/usePercentage'
 import TasksList from '@/components/TasksList.vue'
 import CheckboxInput from '@/components/ui/CheckboxInput.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'
-import useMacroTaskMeta from '@/composables/useMacroTaskMeta'
 import TitleSecond from '@/components/ui/TitleSecond.vue'
 import TextP from '@/components/ui/TextP.vue'
 
@@ -84,21 +84,16 @@ const props = defineProps<{
 
 const isDoneModel = defineModel<boolean>('isDone', { required: true })
 
-const macroTaskDataModel = defineModel<{
+const nestedDataModel = defineModel<{
   doneCount: number
   tasks: {
     id: number
     title: string
     isDone: boolean
   }[]
-}>('macroTaskData', {
-  default: {
-    tasks: [],
-    doneCount: 0,
-  },
-})
+} | null>('nestedData', { required: true })
 
-const macroTaskMeta = useMacroTaskMeta(macroTaskDataModel)
+const percentage = usePercentage(nestedDataModel as Ref)
 
 const emit = defineEmits(['click'])
 

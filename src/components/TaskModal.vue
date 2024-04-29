@@ -1,6 +1,6 @@
 <template>
   <ModalWindow
-    v-if="props.desc || macroTaskMeta.hasTasks"
+    v-if="props.desc || nestedDataModel"
     data-id="TaskModal"
     v-model:is-show="isShowModel"
   >
@@ -11,14 +11,10 @@
           @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
         />
         <TitleSecond>{{ props.title }}</TitleSecond>
-        <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete"/>
+        <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete" />
       </div>
       <div :class="'flex items-center gap-3 ml-auto'">
-        <ProgressBar
-          v-if="macroTaskMeta.hasTasks"
-          :class="'h-3 w-20 mr-5'"
-          :percentage="macroTaskMeta.donePercentage || 0"
-        />
+        <ProgressBar v-if="nestedDataModel" :class="'h-3 w-20 mr-5'" :percentage="percentage" />
         <PageLink
           :route="'task'"
           :params="{ id: props.id.toString() }"
@@ -32,9 +28,9 @@
         flex flex-col 
       `"
     >
-      <template v-if="macroTaskMeta.hasTasks">
+      <template v-if="nestedDataModel">
         <div :class="'pt-5'">
-          <TasksList v-model="macroTaskDataModel.tasks" :class="'grid grid-cols-4 gap-2'" />
+          <TasksList v-model="nestedDataModel.tasks" :class="'grid grid-cols-4 gap-2'" />
         </div>
       </template>
       <TextP :class="`pt-5 pr-8`" v-if="props.desc">
@@ -58,13 +54,14 @@
         @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
       />
       <TitleSecond>{{ props.title }}</TitleSecond>
-      <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete"/>
+      <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete" />
     </div>
   </ModalWindow>
 </template>
 
 <script setup lang="ts">
-import useMacroTaskMeta from '@/composables/useMacroTaskMeta'
+import type { Ref } from 'vue'
+import usePercentage from '@/composables/usePercentage'
 import ModalWindow from '@/components/ui/ModalWindow.vue'
 import TasksList from '@/components/TasksList.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'
@@ -86,21 +83,18 @@ const isShowModel = defineModel<boolean>('isShow', {
   required: true,
 })
 
-const macroTaskDataModel = defineModel<{
+const nestedDataModel = defineModel<{
   doneCount: number
   tasks: {
     id: number
     title: string
     isDone: boolean
   }[]
-}>('macroTaskData', {
-  default: {
-    tasks: [],
-    doneCount: 0,
-  },
-})
+} | null>('nestedData', { required: true })
 
 const emit = defineEmits(['statusChange', 'task-delete'])
+
+const percentage = usePercentage(nestedDataModel as Ref)
 
 const callbacks = {
   onDelete() {
@@ -108,6 +102,4 @@ const callbacks = {
     isShowModel.value = false
   },
 }
-
-const macroTaskMeta = useMacroTaskMeta(macroTaskDataModel)
 </script>

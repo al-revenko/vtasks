@@ -1,15 +1,22 @@
-import { computed, toValue, type Ref } from "vue";
+import { computed, toValue, type MaybeRef } from 'vue'
+import type { INestedData } from '@/types/task.interface'
 
-function usePercentage(total: Ref<number> | number, fromTotal: Ref<number> | number) {
+function usePercentage(nestedData: MaybeRef<INestedData | null>) {
   return computed(() => {
-    const totalValue = toValue(total)
-    const fromTotalValue = toValue(fromTotal)
+    const value = toValue(nestedData)
 
-    if (totalValue > 0) {
-      return Math.floor((fromTotalValue / totalValue) * 100)
+    if (value === null) {
+      return 0
     }
 
-  return 0
+    const tasksCount = value.tasks.length
+    const doneCount = value.doneCount
+
+    if (doneCount > 0) {
+      return Math.floor((doneCount / tasksCount) * 100)
+    }
+
+    return 0
   })
 }
 
