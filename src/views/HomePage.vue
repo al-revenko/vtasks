@@ -28,9 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { ITask } from '@/types/task.interface'
+import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useTaskStore } from '@/stores/task.store'
+import useBreakpoints from '@/composables/useBreakpoints'
+import type { ITask } from '@/types/task.interface'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import CardsLayout from '@/components/layouts/CardsLayout.vue'
 import TaskCard from '@/components/TaskCard.vue'
@@ -38,8 +40,8 @@ import TaskModal from '@/components/TaskModal.vue'
 import TaskFormModal from '@/components/TaskFormModal.vue'
 import MainBar from '@/components/MainBar.vue'
 
+const router = useRouter()
 const taskStore = useTaskStore()
-const mode = ref<boolean | null>(null)
 
 const tasks = computed(() => {
   if (mode.value === null) {
@@ -49,9 +51,11 @@ const tasks = computed(() => {
   return taskStore.getTasksByStatus(mode.value, taskStore.$state.tasks)
 })
 
+const mode = ref<boolean | null>(null)
 const currentTask = ref<ITask | null>(null)
 const taskModalIsShow = ref<boolean>(false)
 const formModalIsShow = ref<boolean>(false)
+const breakpointMatch = ref<boolean>(false)
 
 const callbacks = {
   onTaskCardClick(id: number) {
@@ -77,5 +81,35 @@ const callbacks = {
   onTaskCreated(formData: { title: string; desc?: string; microTasks?: string[] }) {
     taskStore.addTask(formData.title, { desc: formData.desc, microTasks: formData.microTasks })
   },
+
+  taskRedirect() {
+    if (breakpointMatch.value && taskModalIsShow.value && currentTask.value) {
+      const id = currentTask.value.id
+      currentTask.value = null
+      taskModalIsShow.value = false
+      router.push({ name: 'task', params: { id } })
+    }
+  },
+
+  createRedirect() {
+    if (breakpointMatch.value && formModalIsShow.value) {
+      formModalIsShow.value = false
+      router.push({ name: 'create' })
+    }
+  },
 }
+
+useBreakpoints(1024, (match) => {
+  breakpointMatch.value = !match
+  callbacks.taskRedirect()
+  callbacks.createRedirect()
+})
+
+watch(taskModalIsShow, () => {
+  callbacks.taskRedirect()
+})
+
+watch(formModalIsShow, () => {
+  callbacks.createRedirect()
+})
 </script>

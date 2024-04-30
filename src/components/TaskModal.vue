@@ -5,7 +5,7 @@
     v-model:is-show="isShowModel"
   >
     <template #head>
-      <div :class="'flex gap-3 items-center'">
+      <div :class="'flex gap-2 items-center'">
         <CheckboxInput
           v-model="isDoneModel"
           @change="(value: boolean) => emit('statusChange', { id: props.id, status: value })"
@@ -14,7 +14,7 @@
         <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete" />
       </div>
       <div :class="'flex items-center gap-3 ml-auto'">
-        <ProgressBar v-if="nestedDataModel" :class="'h-3 w-20 mr-5'" :percentage="percentage" />
+        <ProgressBar v-if="nestedDataModel" :class="'h-3 w-20 mx-2'" :percentage="percentage" />
         <PageLink
           :route="'task'"
           :params="{ id: props.id.toString() }"
