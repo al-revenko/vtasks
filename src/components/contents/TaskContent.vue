@@ -1,6 +1,6 @@
 <template>
-  <div data-id="TaskContent" :class="`h-full lg:pl-6 pb-8`">
-    <header :class="`lg:pt-6`">
+  <ContentLayout>
+    <template #header>
       <EditableTitle
         :class="`mx-auto sm:mx-0 sm:max-w-lg max-w-72`"
         placeholder="Имя задачи"
@@ -10,9 +10,8 @@
       >
         <TitleMain :class="`max-w-full`">{{ taskModel.title }}</TitleMain>
       </EditableTitle>
-    </header>
-    <main :class="`h-full w-full overflow-x-hidden`">
-      <section :class="`pt-6 text-center sm:text-left`">
+    </template>
+      <section :class="`text-center sm:text-left`">
         <TitleSecond>Время создания</TitleSecond>
         <p :class="`pt-6 lg:pl-4`">{{ createdAt }}</p>
       </section>
@@ -32,8 +31,7 @@
           <TitleSecond>Описание</TitleSecond>
         </EditableText>
       </section>
-    </main>
-  </div>
+  </ContentLayout>
 </template>
 
 <script setup lang="ts">
@@ -42,6 +40,7 @@ import { microTasksMaxCount, titleMaxLength, descMaxLength } from '@/inputConfig
 import type { ITask } from '@/types/task.interface'
 import useTimeFormatter from '@/composables/useTimeFormatter'
 import usePlural from '@/composables/usePlural'
+import ContentLayout from '@/components/layouts/ContentLayout.vue';
 import TitleMain from '@/components/ui/TitleMain.vue'
 import TitleSecond from '@/components/ui/TitleSecond.vue'
 import EditableTitle from '@/components/EditableTitle.vue'

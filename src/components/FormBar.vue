@@ -1,7 +1,7 @@
 <template>
   <MenuBarLayout>
     <BackBtn
-      :class="`lg:my-auto lg:btn-lg btn-sm`"
+      :class="`lg:my-auto lg:btn-md btn-sm`"
       :color="'white'"
       @click="callbacks.onClick"
     />
