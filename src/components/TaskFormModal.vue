@@ -1,11 +1,12 @@
 <template>
   <ModalWindow v-model:is-show="isShowModel">
     <template #head>
-      <div :class="'flex justify-between w-full'">
+      <div :class="'flex justify-between items-center w-full mr-5'">
         <TitleSecond>Создать задачу</TitleSecond>
         <button form="createForm" class="btn btn-neutral mx-auto btn-sm text-white" type="submit">
           Готово
         </button>
+        <PageLink route="create" class="h-7 w-7"/>
       </div>
     </template>
     <form
@@ -48,6 +49,7 @@ import InputArea from '@/components/ui/InputArea.vue'
 import InputList from '@/components/ui/InputList.vue'
 import ModalWindow from '@/components/ui/ModalWindow.vue'
 import TitleSecond from '@/components/ui/TitleSecond.vue'
+import PageLink from '@/components/ui/PageLink.vue'
 
 interface IFormData {
   title: string

@@ -1,8 +1,7 @@
 <template>
   <RouterLink
     :class="`
-      h-6 w-6 mr-5 
-      transition-colors ease-in duration-100 
+    transition-colors ease-in duration-100 
     fill-slate-500 hover:fill-slate-400`"
     :to="{ name: props.route, params: props.params }"
   >

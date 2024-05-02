@@ -13,10 +13,11 @@
         <TitleSecond>{{ props.title }}</TitleSecond>
         <DeleteBtn :class="`btn-xs`" @click="callbacks.onDelete" />
       </div>
-      <div :class="'flex items-center gap-3 ml-auto'">
+      <div :class="'flex items-center gap-3 ml-auto mr-6'">
         <ProgressBar v-if="nestedDataModel" :class="'h-3 w-20 mx-2'" :percentage="percentage" />
         <PageLink
-          :route="'task'"
+          class="w-6 h-6"
+          route="task"
           :params="{ id: props.id.toString() }"
           @click="() => (isShowModel = false)"
         />
@@ -42,7 +43,7 @@
   <ModalWindow v-else data-id="TaskModal" v-model:is-show="isShowModel">
     <template #head>
       <PageLink
-        :route="'task'"
+        route="task"
         :params="{ id: props.id.toString() }"
         :class="'h-7 w-7 transition-colors ease-in duration-100 fill-slate-500 hover:fill-slate-400'"
         @click="() => (isShowModel = false)"
