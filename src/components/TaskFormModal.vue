@@ -13,7 +13,7 @@
       @submit.prevent="() => (callbacks.onSubmit(), (isShowModel = false))"
       id="createForm"
       :class="`
-        min-w-96
+        w-[480px] max-h-[544px]
         grid grid-cols-1 grid-rows-[repeat(3, max-content)] grid-flow-row gap-4 
         pt-6
       `"
@@ -32,6 +32,7 @@
         v-model="formData.desc"
       />
       <InputList
+        :class="`max-h-64`"
         title="Добавить подзадачу"
         :items-maxcount="microTasksMaxCount"
         :input-maxlength="titleMaxLength"
