@@ -24,5 +24,5 @@ const valueModel = defineModel<string>({
 })
 
 const resizeClass = !props.resize ? '  resize-none' : ''
-const textAreaClasses = `grow w-full textarea textarea-bordered bg-transparent` + resizeClass
+const textAreaClasses = `grow w-full textarea textarea-bordered bg-transparent overscroll-contain` + resizeClass
 </script>

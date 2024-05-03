@@ -26,7 +26,7 @@
             mt-2 px-2 py-2
             grid grid-cols-1 grid-flow-row gap-2
             border-2 border-gray-300 rounded-md
-            overflow-y-auto
+            overflow-y-auto overscroll-contain
           `"
       >
         <li

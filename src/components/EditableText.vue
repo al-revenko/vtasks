@@ -1,5 +1,5 @@
 <template>
-  <div data-id="EditableText">
+  <div data-id="EditableText" class="flex flex-col gap-2">
     <div :class="`flex gap-2 items-center`">
       <slot>{{ 'Текст' }}</slot>
       <EditBtn v-if="!isEdit" :class="`btn-xs`" @click="() => (isEdit = true)" />
@@ -8,9 +8,9 @@
     <TextP v-if="!isEdit && textModel" :class="`pl-4 pt-6 text-lg`">
       {{ textModel }}
     </TextP>
-    <form v-else-if="isEdit" id="descForm" :class="`h-full`" @submit.prevent="callbacks.onTextSubmit">
-      <InputArea v-if="props.maxLength" class="h-full w-[95%] mx-auto" placeholder="Описание задачи" :max-length="props.maxLength"  v-model="newText" />
-      <InputArea v-else class="pt-6 h-full w-[95%] mx-auto" placeholder="Описание задачи" v-model="newText" />
+    <form v-else-if="isEdit" class="flex grow" id="descForm" @submit.prevent="callbacks.onTextSubmit">
+      <InputArea v-if="props.maxLength" class="w-[95%] mx-auto" placeholder="Описание задачи" :max-length="props.maxLength"  v-model="newText" />
+      <InputArea v-else class="pt-6 w-[95%] mx-auto" placeholder="Описание задачи" v-model="newText" />
     </form>
   </div>
 </template>

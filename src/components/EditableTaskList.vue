@@ -66,9 +66,9 @@
       `"
     >
       <li :class="`h-12 flex items-center gap-2`" v-for="task in listModel" :key="task.id">
-        <CheckboxInput :class="`checkbox-md`" v-model="task.isDone" />
+        <CheckboxInput :class="`checkbox-lg lg:checkbox-md`" v-model="task.isDone" />
         <h3 :class="`break-words max-w-full min-w-0`">{{ task.title }}</h3>
-        <CloseBtn :class="`ml-auto btn-xs`" @click="() => callbacks.onTaskDelete(task.id)" />
+        <CloseBtn :class="`ml-auto btn-sm lg:btn-xs`" @click="() => callbacks.onTaskDelete(task.id)" />
       </li>
     </ul>
   </template>

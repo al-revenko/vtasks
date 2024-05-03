@@ -27,7 +27,7 @@
         </EditableTaskList>
       </section>
       <section :class="`pt-8`">
-        <EditableText :class="`h-56 pr-2`" v-model="taskModel.desc" :max-length="descMaxLength">
+        <EditableText :class="`lg:min-h-56 min-h-96 pr-2`" v-model="taskModel.desc" :max-length="descMaxLength">
           <TitleSecond>Описание</TitleSecond>
         </EditableText>
       </section>
