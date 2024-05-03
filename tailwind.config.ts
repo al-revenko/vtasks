@@ -11,7 +11,8 @@ module.exports = {
         nord: {
           ...require("daisyui/src/theming/themes")["nord"],
           "success": "#87d039",
-          "error": "#e11d48"
+          "error": "#e11d48",
+          "neutral": "#3f3f46"
         },
       },
     ],

@@ -30,7 +30,7 @@ const colors = computed<{
       return colors
 
     case 'neutral':
-      colors.btn = ` bg-neutral hover:bg-slate-700`
+      colors.btn = ` btn-neutral`
       colors.slot = ` text-white hover:text-white `
       return colors
 

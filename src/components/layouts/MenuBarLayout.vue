@@ -4,7 +4,7 @@
     :class="`
       lg:w-10/12 lg:h-[90dvh] w-full h-full
       lg:justify-self-center 
-      lg:rounded-md bg-zinc-700
+      lg:rounded-md bg-neutral
       sticky lg:top-[5%] top-0 z-20
       box-border 
     `"
