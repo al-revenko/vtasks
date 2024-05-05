@@ -9,7 +9,6 @@
       </div>
       <div v-if="listModel.length < (props.itemsMaxcount ?? Infinity)" :class="`flex gap-2`">
         <InputData
-          ref="inputRef"
           class="w-full"
           type="text"
           :max-length="props.inputMaxlength"
@@ -75,10 +74,6 @@ const callbacks = {
       } else if (!props.itemsMaxcount) {
         listModel.value.push(itemTitle.value)
         itemTitle.value = ''
-      }
-      
-      if (inputRef.value) {
-        inputRef.value.focus()
       }
     }
   },

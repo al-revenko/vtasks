@@ -4,18 +4,18 @@
       data-id="TaskCard"
       :class="
         `
-        max-h-72
+        h-80 w-64
         py-3 px-3
-        grid grid-cols-1 grid-rows-[max-content_1fr] gap-2 
+        flex flex-col gap-2 
         transition-all ease-in duration-200 
         bg-white border rounded-md shadow-[0px_1px_5px_1px]
-        text-start 
-        overflow-hidden
+        text-start
+        overflow-hidden 
         ` + shadowColor
       "
       @click="emit('click', props.id)"
     >
-      <div :class="'flex justify-between gap-3 max-w-full'">
+      <div class="w-full flex justify-between gap-3">
         <TitleSecond :class="'min-w-0'">{{ props.title }}</TitleSecond>
         <div :class="'pt-1'">
           <CheckboxInput @click.stop v-if="!nestedDataModel" v-model="isDoneModel" />
@@ -23,17 +23,21 @@
       </div>
 
       <template v-if="nestedDataModel">
-        <div :class="'pl-1 pr-5'">
+        <div :class="'pl-1 pr-5 shrink min-h-0'">
           <TasksList
             :class="`
-              max-h-44 
+              w-56
               flex flex-col flex-wrap gap-1
               overflow-hidden
             `"
             v-model="nestedDataModel.tasks"
           />
         </div>
-        <ProgressBar :class="`h-4`" :percentage="percentage" :title="percentage + '%'" />
+        <ProgressBar
+          class="h-4 shrink-0 w-full mt-auto"
+          :percentage="percentage"
+          :title="percentage + '%'"
+        />
       </template>
       <template v-else>
         <div v-if="props.desc" :class="'fade max-w-full h-full overflow-hidden'">
@@ -51,7 +55,7 @@
       :href="'/'"
       :class="
         `flex justify-center items-center 
-        h-72 w-64 py-3 px-3 
+        h-80 w-64 py-3 px-3 
         transition-all ease-in duration-200 
         bg-white border rounded-md shadow-[0px_1px_8px_1px]
         overflow-hidden

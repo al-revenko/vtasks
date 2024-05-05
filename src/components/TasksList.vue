@@ -1,5 +1,5 @@
 <template>
-  <ul data-id="TaskList" >
+  <ul data-id="TaskList" class="max-h-full">
     <li :class="'w-full'" data-id="TaskList__item" v-for="task in tasks" :key="task.id">
       <div :class="'flex gap-2 items-center min-h-10'">
           <CheckboxInput

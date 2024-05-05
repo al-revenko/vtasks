@@ -53,7 +53,11 @@ const useTaskStore = defineStore('tasks', () => {
         desc?: string
         microTasks?: string[]
       },
-    ): ITask {
+    ): ITask | null {
+      if (title.length === 0) {
+        return null
+      }
+
       const task = reactive<ITask>(this.createTask(state.__initId.value++, title, optional?.desc))
 
       if (optional?.microTasks && optional.microTasks.length > 0) {
