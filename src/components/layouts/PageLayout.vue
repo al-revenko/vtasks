@@ -1,5 +1,5 @@
 <template>
-  <div :data-id="'PageLayout'" :class="'w-full bg-slate-50'">
+  <div :data-id="'PageLayout'" :class="'w-screen bg-slate-50'">
     <div
       :data-id="'PageLayout__grid-conatiner'"
       :class="`
@@ -9,7 +9,7 @@
       `"
     >
       <slot :name="'bar'" />
-      <div :data-id="'PageLayout__content'" :class="'px-3 py-5'">
+      <div :data-id="'PageLayout__content'" :class="'max-w-full overflow-x-hidden  px-3 py-5'">
         <slot />
       </div>
     </div>
