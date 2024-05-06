@@ -1,5 +1,6 @@
 <template>
   <input
+    data-id="ToggleInput"
     v-if="triple"
     ref="toggle"
     type="checkbox"
@@ -7,7 +8,14 @@
     @click="callbacks.onTripleClick($event.target as HTMLInputElement)"
     @change="emit('change', state)"
   />
-  <input v-else type="checkbox" :class="classes" v-model="state" @change="emit('change', state)" />
+  <input
+    data-id="ToggleInput"
+    v-else
+    type="checkbox"
+    :class="classes"
+    v-model="state"
+    @change="emit('change', state)"
+  />
 </template>
 
 <script setup lang="ts">

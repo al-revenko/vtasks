@@ -1,5 +1,6 @@
 <template>
   <RouterLink
+    data-id="PageLink"
     :class="`
     transition-colors ease-in duration-100 
     fill-slate-500 hover:fill-slate-400`"

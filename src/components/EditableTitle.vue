@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="!isEdit"
+    data-id="EditableTitle"
     :class="`flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2`"
   >
     <slot />
@@ -8,6 +9,7 @@
   </div>
   <form
     v-else
+    data-id="EditableTitle"
     :class="`flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2`"
     @submit.prevent="callbacks.onTitleSubmit"
   >

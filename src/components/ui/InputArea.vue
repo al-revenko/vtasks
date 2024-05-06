@@ -8,7 +8,7 @@
     </div>
     <textarea :class="textAreaClasses" v-bind="props" v-model="valueModel"></textarea>
   </label>
-  <textarea v-else :class="textAreaClasses" v-bind="props" v-model="valueModel"></textarea>
+  <textarea v-else  data-id="InputArea" :class="textAreaClasses" v-bind="props" v-model="valueModel"></textarea>
 </template>
 
 <script setup lang="ts">
