@@ -28,10 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, toRef } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTaskStore } from '@/stores/task.store'
 import useBreakpoints from '@/composables/useBreakpoints'
+import useDisableScroll from '@/composables/useDisableScroll'
 import type { ITask } from '@/types/task.interface'
 import PageLayout from '@/components/layouts/PageLayout.vue'
 import CardsLayout from '@/components/layouts/CardsLayout.vue'
@@ -87,6 +88,7 @@ const callbacks = {
       const id = currentTask.value.id
       currentTask.value = null
       taskModalIsShow.value = false
+      useDisableScroll(toRef(false))
       router.push({ name: 'task', params: { id } })
     }
   },
@@ -94,6 +96,7 @@ const callbacks = {
   createRedirect() {
     if (breakpointMatch.value && formModalIsShow.value) {
       formModalIsShow.value = false
+      useDisableScroll(toRef(false))
       router.push({ name: 'create' })
     }
   },
